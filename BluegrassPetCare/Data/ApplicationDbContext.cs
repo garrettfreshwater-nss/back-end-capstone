@@ -32,10 +32,10 @@ namespace BluegrassPetCare.Data
                 .HasDefaultValueSql("GETDATE()");
 
             // Restrict deletion of related product when OrderProducts entry is removed
-            modelBuilder.Entity<Pet>()
-                .HasMany(o => o.PetUser)
-                .WithOne(l => l.User)
-                .OnDelete(DeleteBehavior.Restrict);
+            //modelBuilder.Entity<Pet>()
+            //    .HasMany(o => o.UserId)
+            //    .WithOne(l => l.User)
+            //    .OnDelete(DeleteBehavior.Restrict);
 
             ApplicationUser user = new ApplicationUser
             {
@@ -59,90 +59,24 @@ namespace BluegrassPetCare.Data
                new Pet()
                {
                    Id = 1,
-                   Name = "Lucy"
-               },
-               new Pet()
-               {
-                   Id = 2,
-                   Name = "Coco"
-               },
-               new Pet()
-               {
-                   Id = 3,
-                   Name = "Tuna"
-               },
-               new Pet()
-               {
-                   Id = 4,
-                   Name = "Francis"
-               },
-               new Pet()
-               {
-                   Id = 5,
-                   Name = "Fido"
-               },
-               new Pet()
-               {
-                   Id = 6,
-                   Name = "Clifford"
-               },
-               new Pet()
-               {
-                   Id = 6,
-                   Name = "Bernard"
+                   Name = "Lucy",
+                   Breed = "",
+                   Color = "",
+                   ImagePath = ""
                }
-           );
-
-            modelBuilder.Entity<Note>().HasData(
-               new Note()
+            );
+            modelBuilder.Entity<Sex>().HasData(
+               new Sex()
                {
                    Id = 1,
-                   Title = "Dog Scratching Leg",
-                   Description = "Dog was scratching leg on thursday 03/33/2020. Leg is red and inflamed",
-                   UploadPath = "",
-                   PetId = 3,
-                   UserId = 2
+                   Type = "Male"
                },
-                new Note()
-                {
-                    Id = 1,
-                    Title = "Dog Scratching Leg",
-                    Description = "Dog was scratching leg on thursday 03/33/2020. Leg is red and inflamed",
-                    UploadPath = "",
-                    PetId = 3,
-                    UserId = 2
-                },
-                new Note()
-                {
-                    Id = 1,
-                    Title = "Dog Scratching Leg",
-                    Description = "Dog was scratching leg on thursday 03/33/2020. Leg is red and inflamed",
-                    UploadPath = "",
-                    PetId = 3,
-                    UserId = 2
-                }
-           );
-
-            modelBuilder.Entity<PetUser>().HasData(
-               new PetUser()
                {
-                   Id = 1,
-                   PetId = 1,
-                   UserId = 1
-               },
-                new PetUser()
-                {
-                    Id = 2,
-                    PetId = 2,
-                    UserId = 1
-                },
-                new PetUser()
-                {
-                    Id = 3,
-                    PetId = 3,
-                    UserId = 1
-                }
-           );
+                Id = 2,
+                   Type = "Female"
+               }
+            );
+
 
         }
 
