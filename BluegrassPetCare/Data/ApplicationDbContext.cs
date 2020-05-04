@@ -24,6 +24,18 @@ namespace BluegrassPetCare.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+            // Customize the ASP.NET Identity model and override the defaults if needed.
+            // For example, you can rename the ASP.NET Identity table names and more.
+            // Add your customizations after calling base.OnModelCreating(builder);
+            modelBuilder.Entity<Note>()
+                .Property(b => b.DateAdded)
+                .HasDefaultValueSql("GETDATE()");
+
+            // Restrict deletion of related product when OrderProducts entry is removed
+            modelBuilder.Entity<Pet>()
+                .HasMany(o => o.PetUser)
+                .WithOne(l => l.User)
+                .OnDelete(DeleteBehavior.Restrict);
 
             ApplicationUser user = new ApplicationUser
             {
@@ -85,51 +97,51 @@ namespace BluegrassPetCare.Data
                new Note()
                {
                    Id = 1,
-                   Title = "Dog Scratching Leg"
+                   Title = "Dog Scratching Leg",
+                   Description = "Dog was scratching leg on thursday 03/33/2020. Leg is red and inflamed",
+                   UploadPath = "",
+                   PetId = 3,
+                   UserId = 2
                },
-               new Note()
-               {
-                   Id = 2,
-                   Title = "Residential Program"
-               },
-               new Note()
-               {
-                   Id = 3,
-                   Title = "Travel Program"
-               }
+                new Note()
+                {
+                    Id = 1,
+                    Title = "Dog Scratching Leg",
+                    Description = "Dog was scratching leg on thursday 03/33/2020. Leg is red and inflamed",
+                    UploadPath = "",
+                    PetId = 3,
+                    UserId = 2
+                },
+                new Note()
+                {
+                    Id = 1,
+                    Title = "Dog Scratching Leg",
+                    Description = "Dog was scratching leg on thursday 03/33/2020. Leg is red and inflamed",
+                    UploadPath = "",
+                    PetId = 3,
+                    UserId = 2
+                }
            );
 
             modelBuilder.Entity<PetUser>().HasData(
                new PetUser()
                {
                    Id = 1,
-                   PetId = 3,
-                   UserId = 2
+                   PetId = 1,
+                   UserId = 1
                },
                 new PetUser()
                 {
-                    Id = 1,
-                    PetId = 3,
-                    UserId = 2
+                    Id = 2,
+                    PetId = 2,
+                    UserId = 1
                 },
                 new PetUser()
                 {
-                    Id = 1,
+                    Id = 3,
                     PetId = 3,
-                    UserId = 2
-                },
-                 new PetUser()
-                 {
-                     Id = 1,
-                     PetId = 3,
-                     UserId = 2
-                 },
-                  new PetUser()
-                  {
-                      Id = 1,
-                      PetId = 3,
-                      UserId = 2
-                  },
+                    UserId = 1
+                }
            );
 
         }

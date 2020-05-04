@@ -17,14 +17,10 @@ namespace BluegrassPetCare.Models
         [Display(Name = "Last Name")]
         public string LastName { get; set; }
 
-        [Required]
-        [Display(Name = "Email")]
-        public string Email { get; set; }
-
-        [Required]
-        [Display(Name = "Phone Number")]
-        public int PhoneNumber { get; set; }
-
         public bool IsAdmin { get; set; }
+        
+        public bool IsVetrinarian { get; set; }
+
+        public string ImagePath { get; set; }
     }
 }
