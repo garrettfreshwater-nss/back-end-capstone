@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -16,11 +17,12 @@ namespace BluegrassPetCare.Models
         [Required]
         [Display(Name = "Last Name")]
         public string LastName { get; set; }
-
-        public bool IsAdmin { get; set; }
         
         public bool IsVetrinarian { get; set; }
 
+        public bool IsAdmin { get; set; }
+
+        [AllowNull]
         public string ImagePath { get; set; }
     }
 }

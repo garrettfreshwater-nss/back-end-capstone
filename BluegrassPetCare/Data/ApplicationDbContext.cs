@@ -20,6 +20,12 @@ namespace BluegrassPetCare.Data
 
         public DbSet<PetUser> PetUser { get; set; }
 
+        public DbSet<Sex> Sex { get; set; }
+
+        public DbSet<Species> Species { get; set; }
+
+        public DbSet<Breed> Breed { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -31,11 +37,6 @@ namespace BluegrassPetCare.Data
                 .Property(b => b.DateAdded)
                 .HasDefaultValueSql("GETDATE()");
 
-            // Restrict deletion of related product when OrderProducts entry is removed
-            //modelBuilder.Entity<Pet>()
-            //    .HasMany(o => o.UserId)
-            //    .WithOne(l => l.User)
-            //    .OnDelete(DeleteBehavior.Restrict);
 
             ApplicationUser user = new ApplicationUser
             {
@@ -55,25 +56,55 @@ namespace BluegrassPetCare.Data
             user.PasswordHash = passwordHash.HashPassword(user, "Admin8*");
             modelBuilder.Entity<ApplicationUser>().HasData(user);
 
-            modelBuilder.Entity<Pet>().HasData(
-               new Pet()
-               {
-                   Id = 1,
-                   Name = "Lucy",
-                   Breed = "",
-                   Color = "",
-                   ImagePath = ""
-               }
-            );
             modelBuilder.Entity<Sex>().HasData(
                new Sex()
                {
                    Id = 1,
                    Type = "Male"
                },
+               new Sex()
                {
-                Id = 2,
+                   Id = 2,
                    Type = "Female"
+               }
+            );
+            modelBuilder.Entity<Species>().HasData(
+               new Species()
+               {
+                   Id = 1,
+                   Name = "Dog"
+               },
+               new Species()
+               {
+                   Id = 2,
+                   Name = "Cat"
+               },
+               new Species()
+               {
+                   Id = 3,
+                   Name = "Farret"
+               },
+               new Species()
+               {
+                   Id = 4,
+                   Name = "Hamster"
+               }
+            );
+            modelBuilder.Entity<Breed>().HasData(
+               new Breed()
+               {
+                   Id = 1,
+                   Name = "Boston Terrier"
+               },
+               new Breed()
+               {
+                   Id = 2,
+                   Name = "Rotweiler"
+               },
+               new Breed()
+               {
+                   Id = 3,
+                   Name = "Hemmingway"
                }
             );
 
