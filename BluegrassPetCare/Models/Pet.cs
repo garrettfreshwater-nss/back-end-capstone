@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -12,6 +14,12 @@ namespace BluegrassPetCare.Models
         public int PetId { get; set; }
 
         [Required]
+        public ApplicationUser User { get; set; }
+
+        [Required]
+        public string UserId { get; set; }
+
+        [AllowNull]
         public string ImagePath { get; set; }
 
         [Required]
@@ -21,17 +29,17 @@ namespace BluegrassPetCare.Models
         public string Name { get; set; }
 
         [Required]
+        public string Color { get; set; }
+
+        [Required(ErrorMessage = "Species is required")]
+        [Display(Name = "Species Type")]
         public int SpeciesId { get; set; }
         public Species Species { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Breed is required")]
+        [Display(Name = "Breed Type")]
         public int BreedId { get; set; }
         public Breed Breed { get; set; }
-
-        public DateTime Birthday { get; set; }
-
-        [Required]
-        public string Color { get; set; }
 
         [Required]
         public int SexId { get; set; }
@@ -40,9 +48,20 @@ namespace BluegrassPetCare.Models
         [Required]
         public bool isSpayedOrNeutered{ get; set; }
 
+        public DateTime Birthday { get; set; }
+
+        [StringLength(255, ErrorMessage = "The Description must be less than 255 characters.")]
+        [RegularExpression(@"^[0-9a-zA-Z''-'\s]{1,256}$", ErrorMessage = "Special characters are not allowed.")]
         public string CurrentMedications { get; set; }
 
+        [StringLength(255, ErrorMessage = "The Description must be less than 255 characters.")]
+        [RegularExpression(@"^[0-9a-zA-Z''-'\s]{1,256}$", ErrorMessage = "Special characters are not allowed.")]
         public string OngoingProblems { get; set; }
+
+        public Pet()
+        {
+            isSpayedOrNeutered = false;
+        }
 
     }
 }
