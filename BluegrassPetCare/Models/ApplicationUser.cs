@@ -10,6 +10,12 @@ namespace BluegrassPetCare.Models
 {
     public class ApplicationUser : IdentityUser
     {
+        // You can Add profile data for application users by adding properties to the ApplicationUser class
+        public ApplicationUser()
+        {
+
+        }
+
         [Required]
         [Display(Name = "First Name")]
         public string FirstName { get; set; }
@@ -24,5 +30,7 @@ namespace BluegrassPetCare.Models
 
         [AllowNull]
         public string ImagePath { get; set; }
+
+        public virtual ICollection<Pet> Pets { get; set; }
     }
 }

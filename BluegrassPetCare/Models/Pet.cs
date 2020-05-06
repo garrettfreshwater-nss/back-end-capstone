@@ -8,7 +8,8 @@ namespace BluegrassPetCare.Models
 {
     public class Pet
     {
-        public int Id { get; set; }
+        [Key]
+        public int PetId { get; set; }
 
         [Required]
         public string ImagePath { get; set; }
