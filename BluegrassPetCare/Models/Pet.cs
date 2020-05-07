@@ -46,7 +46,7 @@ namespace BluegrassPetCare.Models
         public Sex Sex { get; set; }
 
         [Required]
-        public bool isSpayedOrNeutered{ get; set; }
+        public bool IsSpayedOrNeutered{ get; set; }
 
         public DateTime Birthday { get; set; }
 
@@ -60,7 +60,7 @@ namespace BluegrassPetCare.Models
 
         public Pet()
         {
-            isSpayedOrNeutered = false;
+            IsSpayedOrNeutered = false;
         }
 
     }

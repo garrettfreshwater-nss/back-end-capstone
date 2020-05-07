@@ -1,35 +1,91 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using BluegrassPetCare.Data;
 using BluegrassPetCare.Models;
+using BluegrassPetCare.Models.PetViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace BluegrassPetCare.Controllers
 {
     public class PetsController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly UserManager<ApplicationUser> _userManager;
 
-        public PetsController(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
+        public PetsController(ApplicationDbContext ctx, SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager)
         {
-            _context = context;
+            _signInManager = signInManager;
             _userManager = userManager;
-        }
-        // GET: Pets
-        public ActionResult Index()
-        {
-            return View();
+            _context = ctx;
         }
 
-        // GET: Pets/Details/5
-        public ActionResult Details(int id)
+
+        // GET: Pets
+        public async Task<ActionResult> Index(string searchString, Species speciesSearchString)
         {
-            return View();
+            if (searchString != null)
+            {
+                var pets = await _context.Pet
+                    .Where(p => p.Name.Contains(searchString))
+                    .Include(p => p.ImagePath)
+                    .Include(p => p.Breed)
+                    .Include(p => p.Color)
+                    .Include(p => p.ImagePath)
+                    .ToListAsync();
+
+                return View(pets);
+            }
+            else if (speciesSearchString != null)
+            {
+                var pets = await _context.Pet
+                    .Where(p => p.Species == speciesSearchString)
+                    .Include(p => p.Name)
+                    .Include(p => p.Breed)
+                    .ToListAsync();
+
+                return View(pets);
+            }
+            else
+            {
+                var pets = await _context.Pet
+                    .Include(p => p.Name)
+                    .ToListAsync();
+
+                return View(pets);
+            }
+        }
+
+        // GET: MenuItems/Details/5
+        public async Task<ActionResult> Details(int id)
+        {
+            var pet = await _context.Pet
+                .FirstOrDefaultAsync(p => p.PetId == id);
+
+            var viewModel = new PetDetailViewModel()
+            {
+                Pet = new Pet()
+            };
+
+            viewModel.Pet.PetId = pet.PetId;
+            viewModel.Pet.Name = pet.Name;
+            viewModel.Pet.Color = pet.Color;
+            viewModel.Pet.ImagePath = pet.ImagePath;
+            viewModel.Pet.Birthday = pet.Birthday;
+            viewModel.Pet.Breed = pet.Breed;
+            viewModel.Pet.Sex = pet.Sex;
+            viewModel.Pet.CurrentMedications = pet.CurrentMedications;
+            viewModel.Pet.OngoingProblems = pet.OngoingProblems;
+
+
+            return View(viewModel);
         }
 
         // GET: Pets/Create
@@ -41,11 +97,38 @@ namespace BluegrassPetCare.Controllers
         // POST: Pets/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public async Task<ActionResult> Create(PetDetailViewModel petDetailViewModel)
         {
             try
             {
-                // TODO: Add insert logic here
+                var pet = new Pet
+                {
+                    Name = petDetailViewModel.Pet.Name,
+                    User = petDetailViewModel.Pet.User,
+                    Birthday = petDetailViewModel.Pet.Birthday,
+                    Color = petDetailViewModel.Pet.Color,
+                    Species = petDetailViewModel.Species,
+                    Breed = petDetailViewModel.Breed,
+                    Sex = petDetailViewModel.Sex,
+                    OngoingProblems = petDetailViewModel.Pet.OngoingProblems,
+                    CurrentMedications = petDetailViewModel.Pet.CurrentMedications,
+                    IsSpayedOrNeutered = petDetailViewModel.Pet.IsSpayedOrNeutered
+
+                };
+
+                var uploadPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\images");
+                if (petDetailViewModel.ImageFile != null)
+                {
+                    var fileName = Guid.NewGuid().ToString() + petDetailViewModel.ImageFile.FileName;
+                    pet.ImagePath = fileName;
+                    using (var fileStream = new FileStream(Path.Combine(uploadPath, fileName), FileMode.Create))
+                    {
+                        await petDetailViewModel.ImageFile.CopyToAsync(fileStream);
+                    }
+                }
+
+                _context.Pet.Add(pet);
+                await _context.SaveChangesAsync();
 
                 return RedirectToAction(nameof(Index));
             }
@@ -100,5 +183,6 @@ namespace BluegrassPetCare.Controllers
                 return View();
             }
         }
+        private Task<ApplicationUser> GetCurrentUserAsync() => _userManager.GetUserAsync(HttpContext.User);
     }
 }

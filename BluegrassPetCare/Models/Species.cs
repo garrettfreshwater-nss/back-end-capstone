@@ -13,7 +13,7 @@ namespace BluegrassPetCare.Models
 
         [Required]
         [StringLength(255)]
-        [Display(Name = "Category")]
+        [Display(Name = "Species Type")]
         public string Type { get; set; }
 
         public virtual ICollection<Pet> Pets { get; set; }
