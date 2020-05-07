@@ -138,20 +138,34 @@ namespace BluegrassPetCare.Controllers
             }
         }
 
-        // GET: Pets/Edit/5
-        public ActionResult Edit(int id)
+        // GET: MenuItems/Edit/5
+        public async Task<ActionResult> Edit(int id)
         {
-            return View();
+            var pet = await _context.Pet.FirstOrDefaultAsync(p => p.PetId == id);
+
+            return View(pet);
         }
 
-        // POST: Pets/Edit/5
+        // POST: MenuItems/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public async Task<ActionResult> Edit(int id, Pet pet)
         {
             try
             {
-                // TODO: Add update logic here
+                var petPet = new Pet()
+                {
+                    PetId = pet.PetId,
+                    Name = pet.Name,
+                    Color = pet.Color,
+                    ImagePath = pet.ImagePath,
+                    IsSpayedOrNeutered = pet.IsSpayedOrNeutered,
+                    CurrentMedications = pet.CurrentMedications,
+                    OngoingProblems = pet.OngoingProblems
+                };
+
+                _context.Pet.Update(petPet);
+                await _context.SaveChangesAsync();
 
                 return RedirectToAction(nameof(Index));
             }

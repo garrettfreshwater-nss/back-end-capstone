@@ -13,9 +13,6 @@ namespace BluegrassPetCare.Models.PetViewModels
     {
         public Pet Pet { get; set; }
         //public List<SelectListItem> ProductTypes { get; set; }
-        public DateTime DateCreated { get; set; }
-        [Display(Name = " ")]
-        public string ImagePath { get; set; }
         public IFormFile ImageFile { get; set; }
         public Species Species { get; set; }
         public Breed Breed { get; set; }

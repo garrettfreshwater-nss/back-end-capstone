@@ -13,6 +13,8 @@ namespace BluegrassPetCare.Models
         [Key]
         public int NoteId { get; set; }
 
+        public ApplicationUser User { get; set; }
+
         [Required]
         [DataType(DataType.Date)]
         [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
@@ -35,12 +37,6 @@ namespace BluegrassPetCare.Models
         [Display(Name = "Pet Name")]
         public int PetId { get; set; }
         public Pet Pet { get; set; }
-
-
-        public ApplicationUser User { get; set; }
-  
-        [Required]
-        public string UserId { get; set; }
 
     }
 }

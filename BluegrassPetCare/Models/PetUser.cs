@@ -11,11 +11,9 @@ namespace BluegrassPetCare.Models
         [Key]
         public int PetUserId { get; set; }
 
-        [Required]
-        public ApplicationUser User { get; set; }
-
-        [Required]
         public string UserId { get; set; }
+
+        public ApplicationUser User { get; set; }
 
         public int PetId { get; set; }
         public Pet Pet { get; set; }

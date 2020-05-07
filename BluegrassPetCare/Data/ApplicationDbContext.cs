@@ -12,7 +12,7 @@ namespace BluegrassPetCare.Data
         {
 
         }
-        public DbSet<ApplicationUser> ApplicationUser { get; set; }
+        public DbSet<ApplicationUser> ApplicationUsers { get; set; }
 
         public DbSet<Note> Note { get; set; }
 
@@ -82,12 +82,17 @@ namespace BluegrassPetCare.Data
                new Species()
                {
                    SpeciesId = 3,
-                   Type = "Farret"
+                   Type = "Wolf"
                },
                new Species()
                {
                    SpeciesId = 4,
-                   Type = "Hamster"
+                   Type = "Human"
+               },
+               new Species()
+               {
+                   SpeciesId = 5,
+                   Type = "Bald Eagle"
                }
             );
             modelBuilder.Entity<Breed>().HasData(
@@ -105,9 +110,13 @@ namespace BluegrassPetCare.Data
                {
                    BreedId = 3,
                    BreedName = "Hemmingway"
+               },
+               new Breed()
+               {
+                   BreedId = 4,
+                   BreedName = "Shitzu"
                }
             );
-
 
         }
 
