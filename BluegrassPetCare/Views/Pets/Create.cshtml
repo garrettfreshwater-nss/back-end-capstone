@@ -1,0 +1,68 @@
+﻿@model BluegrassPetCare.Models.PetViewModels.PetDetailViewModel
+
+@{
+    ViewData["Name"] = "Create";
+}
+
+<h1>Add a Pet</h1>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Pet.Name" class="control-label">Name</label>
+                <input asp-for="Pet.Name" class="form-control" />
+                <span asp-validation-for="Pet.Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Pet.OngoingProblems" class="control-label">OngoingProblems</label>
+                <textarea asp-for="Pet.OngoingProblems" class="form-control"></textarea>
+                <span asp-validation-for="Pet.OngoingProblems" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Pet.IsSpayedOrNeutered" class="control-label">Is Spayed or Neutered</label>
+                <input type="checkbox" asp-for="Pet.IsSpayedOrNeutered" class="form-control" />
+                <span asp-validation-for="Pet.IsSpayedOrNeutered" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ImageFile" class="control-label">Upload an Image</label>
+                <input asp-for="ImageFile" class="form-control" type="file" />
+                <span asp-validation-for="ImageFile" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Pet.Birthday" class="control-label">Birthday</label>
+                <input type="date" asp-for="Pet.Birthday" class="form-control" />
+                <span asp-validation-for="Pet.Birthday" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Pet.Species" class="control-label">Birthday</label>
+                <input asp-for="Pet.Species" class="form-control" />
+                <span asp-validation-for="Pet.Species" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Pet.Species" class="col-md-2 control-label"></label>
+                <div class="col-md-10">
+                    <select asp-for="Pet.Species.SpeciesId">
+                        <option selected="selected" value="Type">Species</option>
+                    </select>
+                    <span asp-validation-for="Pet.Species.SpeciesId" class="text-danger" />
+                </div>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

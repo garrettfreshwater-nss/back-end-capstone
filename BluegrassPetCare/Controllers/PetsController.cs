@@ -43,16 +43,16 @@ namespace BluegrassPetCare.Controllers
 
                 return View(pets);
             }
-            else if (speciesSearchString != null)
-            {
-                var pets = await _context.Pet
-                    .Where(p => p.Species == speciesSearchString)
-                    .Include(p => p.Name)
-                    .Include(p => p.Breed)
-                    .ToListAsync();
+            //else if (speciesSearchString != null)
+            //{
+            //    var pets = await _context.Pet
+            //        .Where(p => p.Species == speciesSearchString)
+            //        .Include(p => p.Name)
+            //        .Include(p => p.Breed)
+            //        .ToListAsync();
 
-                return View(pets);
-            }
+            //    return View(pets);
+            //}
             else
             {
                 var pets = await _context.Pet
@@ -104,7 +104,6 @@ namespace BluegrassPetCare.Controllers
                 var pet = new Pet
                 {
                     Name = petDetailViewModel.Pet.Name,
-                    User = petDetailViewModel.Pet.User,
                     Birthday = petDetailViewModel.Pet.Birthday,
                     Color = petDetailViewModel.Pet.Color,
                     Species = petDetailViewModel.Species,
@@ -113,7 +112,6 @@ namespace BluegrassPetCare.Controllers
                     OngoingProblems = petDetailViewModel.Pet.OngoingProblems,
                     CurrentMedications = petDetailViewModel.Pet.CurrentMedications,
                     IsSpayedOrNeutered = petDetailViewModel.Pet.IsSpayedOrNeutered
-
                 };
 
                 var uploadPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\images");

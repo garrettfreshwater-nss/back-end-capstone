@@ -15,17 +15,16 @@ namespace BluegrassPetCare.Models
 
         public ApplicationUser User { get; set; }
 
-        [Required]
         [DataType(DataType.Date)]
         [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
         public DateTime DateAdded { get; set; }
 
-        [Required]
+     
         [StringLength(55, ErrorMessage = "The Title must be less than 55 characters.")]
         [RegularExpression(@"^[0-9a-zA-Z''-'\s]{1,56}$", ErrorMessage = "Special characters are not allowed.")]
         public string Title { get; set; }
 
-        [Required]
+    
         [StringLength(255, ErrorMessage = "The Description must be less than 255 characters.")]
         [RegularExpression(@"^[0-9a-zA-Z''-'\s]{1,256}$", ErrorMessage = "Special characters are not allowed.")]
         public string Description { get; set; }

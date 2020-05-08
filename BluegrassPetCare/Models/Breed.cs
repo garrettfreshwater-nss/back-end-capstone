@@ -11,7 +11,7 @@ namespace BluegrassPetCare.Models
         [Key]
         public int BreedId { get; set; }
 
-        [Required]
+       
         [StringLength(255)]
         [Display(Name = "Breed")]
         public string BreedName { get; set; }

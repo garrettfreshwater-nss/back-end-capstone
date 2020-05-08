@@ -57,7 +57,7 @@ namespace BluegrassPetCare.Migrations
                 {
                     BreedId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    BreedName = table.Column<string>(maxLength: 255, nullable: false)
+                    BreedName = table.Column<string>(maxLength: 255, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -70,7 +70,7 @@ namespace BluegrassPetCare.Migrations
                 {
                     SexId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Type = table.Column<string>(maxLength: 255, nullable: false)
+                    Type = table.Column<string>(maxLength: 255, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -83,7 +83,7 @@ namespace BluegrassPetCare.Migrations
                 {
                     SpeciesId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Type = table.Column<string>(maxLength: 255, nullable: false)
+                    Type = table.Column<string>(maxLength: 255, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -202,10 +202,10 @@ namespace BluegrassPetCare.Migrations
                 {
                     PetId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    UserId = table.Column<string>(nullable: false),
+                    UserId = table.Column<string>(nullable: true),
                     ImagePath = table.Column<string>(nullable: true),
-                    Name = table.Column<string>(maxLength: 55, nullable: false),
-                    Color = table.Column<string>(nullable: false),
+                    Name = table.Column<string>(maxLength: 55, nullable: true),
+                    Color = table.Column<string>(nullable: true),
                     SpeciesId = table.Column<int>(nullable: false),
                     BreedId = table.Column<int>(nullable: false),
                     SexId = table.Column<int>(nullable: false),
@@ -240,7 +240,7 @@ namespace BluegrassPetCare.Migrations
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -251,8 +251,8 @@ namespace BluegrassPetCare.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     UserId = table.Column<string>(nullable: true),
                     DateAdded = table.Column<DateTime>(nullable: false, defaultValueSql: "GETDATE()"),
-                    Title = table.Column<string>(maxLength: 55, nullable: false),
-                    Description = table.Column<string>(maxLength: 255, nullable: false),
+                    Title = table.Column<string>(maxLength: 55, nullable: true),
+                    Description = table.Column<string>(maxLength: 255, nullable: true),
                     UploadPath = table.Column<string>(nullable: true),
                     PetId = table.Column<int>(nullable: false)
                 },
@@ -302,7 +302,7 @@ namespace BluegrassPetCare.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "FirstName", "ImagePath", "IsAdmin", "IsVetrinarian", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "00000000-ffff-ffff-ffff-ffffffffffff", 0, "b3d087ad-8865-4d7b-867e-d3df140fcec6", "admin@admin.com", true, "Admina", null, true, false, "Straytor", false, null, "ADMIN@ADMIN.COM", "ADMIN@ADMIN.COM", "AQAAAAEAACcQAAAAEE3ffrmomfmeHAzxdNxSWn0kW89q1hm69oswMj176BxtdcRBAMAK6dSr13aU0xwEXg==", null, false, "7f434309-a4d9-48e9-9ebb-8803db794577", false, "admin@admin.com" });
+                values: new object[] { "00000000-ffff-ffff-ffff-ffffffffffff", 0, "a7bc2615-46d8-4382-986e-d8d41103781c", "admin@admin.com", true, "Admina", null, true, false, "Straytor", false, null, "ADMIN@ADMIN.COM", "ADMIN@ADMIN.COM", "AQAAAAEAACcQAAAAENznur1Eb5F8NztE8pnwCGuxhkwVmWbxlVC0T2JzRS539Sjr2SpH6gWmLmBgKpSolw==", null, false, "7f434309-a4d9-48e9-9ebb-8803db794577", false, "admin@admin.com" });
 
             migrationBuilder.InsertData(
                 table: "Breed",

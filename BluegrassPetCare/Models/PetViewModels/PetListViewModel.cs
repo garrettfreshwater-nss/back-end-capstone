@@ -7,6 +7,8 @@ namespace BluegrassPetCare.Models.PetViewModels
 {
     public class PetListViewModel
     {
+        public int Id { get; set; }
+        public Pet Pet { get; set; }
         public IEnumerable<Pet> Pets { get; set; }
     }
 }

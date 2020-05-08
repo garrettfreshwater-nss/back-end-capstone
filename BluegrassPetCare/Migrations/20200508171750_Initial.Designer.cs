@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BluegrassPetCare.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20200507210846_Initial")]
+    [Migration("20200508171750_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -107,7 +107,7 @@ namespace BluegrassPetCare.Migrations
                         {
                             Id = "00000000-ffff-ffff-ffff-ffffffffffff",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "b3d087ad-8865-4d7b-867e-d3df140fcec6",
+                            ConcurrencyStamp = "a7bc2615-46d8-4382-986e-d8d41103781c",
                             Email = "admin@admin.com",
                             EmailConfirmed = true,
                             FirstName = "Admina",
@@ -117,7 +117,7 @@ namespace BluegrassPetCare.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@ADMIN.COM",
                             NormalizedUserName = "ADMIN@ADMIN.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEE3ffrmomfmeHAzxdNxSWn0kW89q1hm69oswMj176BxtdcRBAMAK6dSr13aU0xwEXg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAENznur1Eb5F8NztE8pnwCGuxhkwVmWbxlVC0T2JzRS539Sjr2SpH6gWmLmBgKpSolw==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "7f434309-a4d9-48e9-9ebb-8803db794577",
                             TwoFactorEnabled = false,
@@ -133,7 +133,6 @@ namespace BluegrassPetCare.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("BreedName")
-                        .IsRequired()
                         .HasColumnType("nvarchar(255)")
                         .HasMaxLength(255);
 
@@ -177,7 +176,6 @@ namespace BluegrassPetCare.Migrations
                         .HasDefaultValueSql("GETDATE()");
 
                     b.Property<string>("Description")
-                        .IsRequired()
                         .HasColumnType("nvarchar(255)")
                         .HasMaxLength(255);
 
@@ -185,7 +183,6 @@ namespace BluegrassPetCare.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Title")
-                        .IsRequired()
                         .HasColumnType("nvarchar(55)")
                         .HasMaxLength(55);
 
@@ -218,7 +215,6 @@ namespace BluegrassPetCare.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Color")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("CurrentMedications")
@@ -232,7 +228,6 @@ namespace BluegrassPetCare.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("Name")
-                        .IsRequired()
                         .HasColumnType("nvarchar(55)")
                         .HasMaxLength(55);
 
@@ -247,7 +242,6 @@ namespace BluegrassPetCare.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("UserId")
-                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("PetId");
@@ -293,7 +287,6 @@ namespace BluegrassPetCare.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Type")
-                        .IsRequired()
                         .HasColumnType("nvarchar(255)")
                         .HasMaxLength(255);
 
@@ -322,7 +315,6 @@ namespace BluegrassPetCare.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Type")
-                        .IsRequired()
                         .HasColumnType("nvarchar(255)")
                         .HasMaxLength(255);
 
@@ -528,9 +520,7 @@ namespace BluegrassPetCare.Migrations
 
                     b.HasOne("BluegrassPetCare.Models.ApplicationUser", "User")
                         .WithMany("Pets")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("BluegrassPetCare.Models.PetUser", b =>

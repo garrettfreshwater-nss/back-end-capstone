@@ -12,7 +12,6 @@ namespace BluegrassPetCare.Models.PetViewModels
     public class PetDetailViewModel
     {
         public Pet Pet { get; set; }
-        //public List<SelectListItem> ProductTypes { get; set; }
         public IFormFile ImageFile { get; set; }
         public Species Species { get; set; }
         public Breed Breed { get; set; }

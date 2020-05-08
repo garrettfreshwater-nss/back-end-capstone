@@ -13,21 +13,19 @@ namespace BluegrassPetCare.Models
         [Key]
         public int PetId { get; set; }
 
-        [Required]
         public ApplicationUser User { get; set; }
 
         public string UserId { get; set; }
 
-        [AllowNull]
         public string ImagePath { get; set; }
 
-        [Required]
+       
         [StringLength(55, ErrorMessage = "Please shorten the product title to 55 characters")]
         [RegularExpression(@"^[0-9a-zA-Z''-'\s]{1,40}$",
          ErrorMessage = "special characters are not  allowed.")]
         public string Name { get; set; }
 
-        [Required]
+        
         public string Color { get; set; }
 
         [Required(ErrorMessage = "Species is required")]
@@ -40,11 +38,11 @@ namespace BluegrassPetCare.Models
         public int BreedId { get; set; }
         public Breed Breed { get; set; }
 
-        [Required]
+        
         public int SexId { get; set; }
         public Sex Sex { get; set; }
 
-        [Required]
+        
         public bool IsSpayedOrNeutered{ get; set; }
 
         public DateTime Birthday { get; set; }
