@@ -1,7 +1,6 @@
 ﻿@using Microsoft.AspNetCore.Identity
 @model IEnumerable<BluegrassPetCare.Models.Pet>
-@inject SignInManager<ApplicationUser> SignInManager
-@inject UserManager<ApplicationUser> UserManager
+
 
 @{
     ViewData["Title"] = "Index";
@@ -13,21 +12,16 @@
     <a asp-action="Create">Add a pet!</a>
 </p>
 
-<a type="button" class="btn btn-primary mb-2" asp-action="Index" asp-route-filter="Gluten Free">Gluten Free</a>
-<a type="button" class="btn btn-success mb-2" asp-action="Index" asp-route-filter="Vegetarian">Vegetarian</a>
-<a type="button" class="btn btn-warning mb-2" asp-action="Index" asp-route-filter="Vegan">Vegan</a>
-<a type="button" class="btn btn-info mb-2" asp-action="Index" asp-route-filter="All">Clear</a>
-
 <table class="table">
     <thead>
         <tr>
             <th>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Name)
+                @Html.DisplayNameFor(model => model.PetId)
             </th>
             <th>
-                Gluten Free
+                @Html.DisplayNameFor(model => model.Name)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Species)
@@ -49,8 +43,8 @@
 
         @foreach (var item in Model)
         {
-            @if (item.IsSpayedOrNeutered == true)
-            {
+            
+            
                 <tr>
                     <td>
                         <a href=@Url.Action("Details", "Pet", new { id = item.PetId }) title="Details" class="links">
@@ -69,92 +63,17 @@
                     <td>
                         @Html.DisplayFor(modelItem => item.Species)
                     </td>
-                    @if (!SignInManager.IsSignedIn(User) || UserManager.GetUserAsync(User).Result.IsAdmin == false)
-                    {
-                        <td>
-                        </td>
-                    }
-                    else if (UserManager.GetUserAsync(User).Result.IsAdmin == true)
-                    {
+                   
+                       
+                    
+                   
                         <td>
                             @Html.ActionLink("Edit", "Edit", new { id = item.PetId })
-                            @*Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                                @Html.ActionLink("SetInactive", "SetInactive", new { id = item.MenuItemId }) *@
+                            @Html.ActionLink("Details", "Details", new { id=item.PetId })                      
                         </td>
-                    }
+                    
                 </tr>
-            }
+            
         }
     </tbody>
 </table>
-
-@if (!SignInManager.IsSignedIn(User) || UserManager.GetUserAsync(User).Result.IsAdmin == false)
-{
-    <table>
-    </table>
-}
-else if (UserManager.GetUserAsync(User).Result.IsAdmin == true)
-{
-    <h1>Inactive Items</h1>
-    <table class="table">
-        <thead>
-            <tr>
-                <th>
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Name)
-                </th>
-                <th>
-                    Gluten Free
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Sex)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Breed)
-                </th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model)
-            {
-                @if (item.IsSpayedOrNeutered == false)
-                {
-                    <tr>
-                        <td>
-                            <a href=@Url.Action("Details", "Pet", new { id = item.PetId }) title="Details" class="links">
-                                <img style="max-height: 250px; max-width: 250px" src="~/images/@item.ImagePath" alt="menu item image" />
-                            </a>
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Name)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Sex)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Breed)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Species)
-                        </td>
-                        @if (!SignInManager.IsSignedIn(User) || UserManager.GetUserAsync(User).Result.IsAdmin == false)
-                        {
-                            <td>
-                            </td>
-                        }
-                        else if (UserManager.GetUserAsync(User).Result.IsAdmin == true)
-                        {
-                            <td>
-                                @Html.ActionLink("Edit", "Edit", new { id = item.PetId })
-                                @*Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                                    @Html.ActionLink("SetInactive", "SetInactive", new { id = item.MenuItemId }) *@
-                            </td>
-                        }
-                    </tr>
-                }
-            }
-        </tbody>
-    </table>
-}

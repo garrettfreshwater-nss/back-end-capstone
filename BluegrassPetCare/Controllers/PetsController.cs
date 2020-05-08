@@ -29,42 +29,33 @@ namespace BluegrassPetCare.Controllers
 
 
         // GET: Pets
-        public async Task<ActionResult> Index(string searchString, Species speciesSearchString)
+        public async Task<ActionResult> Index(string searchString, string breedSearchString)
         {
+
+
+
             if (searchString != null)
             {
-                var pets = await _context.Pet
+                var pet = await _context.Pet
                     .Where(p => p.Name.Contains(searchString))
-                    .Include(p => p.ImagePath)
                     .Include(p => p.Breed)
-                    .Include(p => p.Color)
-                    .Include(p => p.ImagePath)
                     .ToListAsync();
 
-                return View(pets);
+                return View(pet);
             }
-            //else if (speciesSearchString != null)
-            //{
-            //    var pets = await _context.Pet
-            //        .Where(p => p.Species == speciesSearchString)
-            //        .Include(p => p.Name)
-            //        .Include(p => p.Breed)
-            //        .ToListAsync();
-
-            //    return View(pets);
-            //}
             else
             {
-                var pets = await _context.Pet
-                    .Include(p => p.Name)
+                var pet = await _context.Pet
+                    .Include(p => p.Breed)
                     .ToListAsync();
 
-                return View(pets);
+                return View(pet);
             }
         }
+            
 
-        // GET: MenuItems/Details/5
-        public async Task<ActionResult> Details(int id)
+            // GET: MenuItems/Details/5
+            public async Task<ActionResult> Details(int id)
         {
             var pet = await _context.Pet
                 .FirstOrDefaultAsync(p => p.PetId == id);
