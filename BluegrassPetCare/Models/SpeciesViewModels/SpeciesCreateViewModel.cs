@@ -13,9 +13,9 @@ namespace Bluegrass.Models.SpeciesViewModels
         [Key]
         public int SpeciesId { get; set; }
 
-        [Required]
-        [StringLength(55)]
-        public string Description { get; set; }
+        [StringLength(255)]
+        [Display(Name = "Species Type")]
+        public string Type { get; set; }
 
         [Required]
         public string UserId { get; set; }
