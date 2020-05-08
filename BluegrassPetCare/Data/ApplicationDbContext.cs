@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Bluegrass.Models.SpeciesViewModels;
 
 namespace BluegrassPetCare.Data
 {
@@ -119,6 +120,9 @@ namespace BluegrassPetCare.Data
             );
 
         }
+
+
+        public DbSet<Bluegrass.Models.SpeciesViewModels.SpeciesCreateViewModel> SpeciesCreateViewModel { get; set; }
 
     }
 }
