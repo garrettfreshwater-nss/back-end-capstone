@@ -13,10 +13,7 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Type)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.SpeciesId)
+                @Html.DisplayNameFor(model => model.SpeciesType)
             </th>
             <th></th>
         </tr>
@@ -26,7 +23,7 @@
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Type)
+                    @Html.DisplayFor(modelItem => item.SpeciesType)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.SpeciesId)

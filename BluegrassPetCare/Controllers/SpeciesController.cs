@@ -63,7 +63,7 @@ namespace BluegrassPetCare.Controllers
         {
             var species = new Species
             {
-               Type = Species.Type
+               SpeciesType = Species.SpeciesType
             };
             var user = await GetCurrentUserAsync();
             species.UserId = user.Id;

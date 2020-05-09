@@ -61,39 +61,39 @@ namespace BluegrassPetCare.Data
                new Sex()
                {
                    SexId = 1,
-                   Type = "Male"
+                   SexType = "Male"
                },
                new Sex()
                {
                    SexId = 2,
-                   Type = "Female"
+                   SexType = "Female"
                }
             );
             modelBuilder.Entity<Species>().HasData(
                new Species()
                {
                    SpeciesId = 1,
-                   Type = "Dog"
+                   SpeciesType = "Dog"
                },
                new Species()
                {
                    SpeciesId = 2,
-                   Type = "Cat"
+                   SpeciesType = "Cat"
                },
                new Species()
                {
                    SpeciesId = 3,
-                   Type = "Wolf"
+                   SpeciesType = "Wolf"
                },
                new Species()
                {
                    SpeciesId = 4,
-                   Type = "Human"
+                   SpeciesType = "Human"
                },
                new Species()
                {
                    SpeciesId = 5,
-                   Type = "Bald Eagle"
+                   SpeciesType = "Bald Eagle"
                }
             );
             modelBuilder.Entity<Breed>().HasData(

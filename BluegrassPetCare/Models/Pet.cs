@@ -35,7 +35,7 @@ namespace BluegrassPetCare.Models
 
 
         [Required(ErrorMessage = "Breed is required")]
-        [Display(Name = "Breed Type")]
+        [Display(Name = "Breed Name")]
         public int BreedId { get; set; }
         public Breed Breed { get; set; }
 

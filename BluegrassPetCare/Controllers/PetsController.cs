@@ -40,6 +40,8 @@ namespace BluegrassPetCare.Controllers
                 var pet = await _context.Pet
                     .Where(p => p.Name.Contains(searchString))
                     .Include(p => p.Breed)
+                    .Include(p => p.Sex)
+                    .Include(p => p.Species)
                     .ToListAsync();
 
                 return View(pet);
@@ -48,6 +50,8 @@ namespace BluegrassPetCare.Controllers
             {
                 var pet = await _context.Pet
                     .Include(p => p.Breed)
+                    .Include(p => p.Sex)
+                    .Include(p => p.Species)
                     .ToListAsync();
 
                 return View(pet);
@@ -73,6 +77,7 @@ namespace BluegrassPetCare.Controllers
             viewModel.Pet.Birthday = pet.Birthday;
             viewModel.Pet.Breed = pet.Breed;
             viewModel.Pet.Sex = pet.Sex;
+            viewModel.Pet.Species = pet.Species;
             viewModel.Pet.CurrentMedications = pet.CurrentMedications;
             viewModel.Pet.OngoingProblems = pet.OngoingProblems;
 
@@ -87,10 +92,10 @@ namespace BluegrassPetCare.Controllers
                .Select(b => new SelectListItem() { Text = b.BreedName, Value = b.BreedId.ToString() })
                .ToListAsync();
             var speciesTypes = await _context.Species
-                .Select(s => new SelectListItem() { Text = s.Type, Value = s.SpeciesId.ToString() })
+                .Select(s => new SelectListItem() { Text = s.SpeciesType, Value = s.SpeciesId.ToString() })
                 .ToListAsync();
             var sexTypes = await _context.Sex
-               .Select(s => new SelectListItem() { Text = s.Type, Value = s.SexId.ToString() })
+               .Select(s => new SelectListItem() { Text = s.SexType, Value = s.SexId.ToString() })
                .ToListAsync();
             var viewmodel = new PetDetailViewModel();
             viewmodel.SpeciesTypeOptions = speciesTypes;
@@ -160,7 +165,6 @@ namespace BluegrassPetCare.Controllers
             {
                 var petPet = new Pet()
                 {
-                    PetId = pet.PetId,
                     Name = pet.Name,
                     Color = pet.Color,
                     ImagePath = pet.ImagePath,
@@ -181,26 +185,33 @@ namespace BluegrassPetCare.Controllers
         }
 
         // GET: Pets/Delete/5
-        public ActionResult Delete(int id)
+        public async Task<ActionResult> Delete(int? id)
         {
-            return View();
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var pet = await _context.Pet
+                .FirstOrDefaultAsync(p => p.PetId == id);
+            if (pet == null)
+            {
+                return NotFound();
+            }
+
+            return View(pet);
+
         }
 
         // POST: Pets/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public async Task<ActionResult> Delete(int id)
         {
-            try
-            {
-                // TODO: Add delete logic here
-
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+            var pet = await _context.Pet.FindAsync(id);
+            _context.Pet.Remove(pet);
+            await _context.SaveChangesAsync();
+            return RedirectToPage("/Pets");
         }
         private Task<ApplicationUser> GetCurrentUserAsync() => _userManager.GetUserAsync(HttpContext.User);
     }
