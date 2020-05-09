@@ -159,18 +159,21 @@ namespace BluegrassPetCare.Controllers
         // POST: MenuItems/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit(int id, Pet pet)
+        public async Task<ActionResult> Edit(int id, PetDetailViewModel petDetailViewModel)
         {
             try
             {
                 var petPet = new Pet()
                 {
-                    Name = pet.Name,
-                    Color = pet.Color,
-                    ImagePath = pet.ImagePath,
-                    IsSpayedOrNeutered = pet.IsSpayedOrNeutered,
-                    CurrentMedications = pet.CurrentMedications,
-                    OngoingProblems = pet.OngoingProblems
+                    Name = petDetailViewModel.Pet.Name,
+                    Birthday = petDetailViewModel.Pet.Birthday,
+                    Color = petDetailViewModel.Pet.Color,
+                    SpeciesId = petDetailViewModel.Pet.SpeciesId,
+                    BreedId = petDetailViewModel.Pet.BreedId,
+                    SexId = petDetailViewModel.Pet.SexId,
+                    OngoingProblems = petDetailViewModel.Pet.OngoingProblems,
+                    CurrentMedications = petDetailViewModel.Pet.CurrentMedications,
+                    IsSpayedOrNeutered = petDetailViewModel.Pet.IsSpayedOrNeutered
                 };
 
                 _context.Pet.Update(petPet);
