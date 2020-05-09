@@ -13,8 +13,8 @@ namespace BluegrassPetCare.Models.PetViewModels
     {
         public Pet Pet { get; set; }
         public IFormFile ImageFile { get; set; }
-        public Species Species { get; set; }
-        public Breed Breed { get; set; }
-        public Sex Sex { get; set; }
+        public Species SpeciesId { get; set; }
+        public Breed BreedId { get; set; }
+        public Sex SexId { get; set; }
     }
 }

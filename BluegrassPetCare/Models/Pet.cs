@@ -19,13 +19,13 @@ namespace BluegrassPetCare.Models
 
         public string ImagePath { get; set; }
 
-       
+
         [StringLength(55, ErrorMessage = "Please shorten the product title to 55 characters")]
         [RegularExpression(@"^[0-9a-zA-Z''-'\s]{1,40}$",
          ErrorMessage = "special characters are not  allowed.")]
         public string Name { get; set; }
 
-        
+
         public string Color { get; set; }
 
         [Required(ErrorMessage = "Species is required")]
@@ -37,22 +37,18 @@ namespace BluegrassPetCare.Models
         [Display(Name = "Breed Type")]
         public int BreedId { get; set; }
         public Breed Breed { get; set; }
-
-        
         public int SexId { get; set; }
         public Sex Sex { get; set; }
 
-        
-        public bool IsSpayedOrNeutered{ get; set; }
+
+        public bool IsSpayedOrNeutered { get; set; }
 
         public DateTime Birthday { get; set; }
 
         [StringLength(255, ErrorMessage = "The Description must be less than 255 characters.")]
-        [RegularExpression(@"^[0-9a-zA-Z''-'\s]{1,256}$", ErrorMessage = "Special characters are not allowed.")]
         public string CurrentMedications { get; set; }
 
         [StringLength(255, ErrorMessage = "The Description must be less than 255 characters.")]
-        [RegularExpression(@"^[0-9a-zA-Z''-'\s]{1,256}$", ErrorMessage = "Special characters are not allowed.")]
         public string OngoingProblems { get; set; }
 
         public Pet()

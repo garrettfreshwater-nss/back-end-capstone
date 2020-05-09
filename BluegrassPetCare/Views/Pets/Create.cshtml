@@ -37,15 +37,15 @@
                 <span asp-validation-for="Pet.Birthday" class="text-danger"></span>
             </div>
 
-            <div class="form-group">
-                <label asp-for="Species" class="col-md-2 control-label"></label>
+            @*<div class="form-group">
+                <label asp-for="SpeciesId" class="col-md-2 control-label"></label>
                 <div class="col-md-10">
-                    <select asp-for="Species">
-                        <option selected="selected" value="Type">Species</option>
+                    <select asp-for="SpeciesId">
+                        <option selected="Type" value="Type"></option>
                     </select>
-                    <span asp-validation-for="Species.Type" class="text-danger" />
+                    <span asp-validation-for="SpeciesId.Type" class="text-danger" />
                 </div>
-            </div>
+            </div>*@
 
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />

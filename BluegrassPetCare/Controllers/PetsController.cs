@@ -97,9 +97,9 @@ namespace BluegrassPetCare.Controllers
                     Name = petDetailViewModel.Pet.Name,
                     Birthday = petDetailViewModel.Pet.Birthday,
                     Color = petDetailViewModel.Pet.Color,
-                    Species = petDetailViewModel.Species,
-                    Breed = petDetailViewModel.Breed,
-                    Sex = petDetailViewModel.Sex,
+                    Species = petDetailViewModel.SpeciesId,
+                    Breed = petDetailViewModel.BreedId,
+                    Sex = petDetailViewModel.SexId,
                     OngoingProblems = petDetailViewModel.Pet.OngoingProblems,
                     CurrentMedications = petDetailViewModel.Pet.CurrentMedications,
                     IsSpayedOrNeutered = petDetailViewModel.Pet.IsSpayedOrNeutered
