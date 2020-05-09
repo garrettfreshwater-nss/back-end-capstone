@@ -12,8 +12,8 @@ namespace BluegrassPetCare.Models
         public int SpeciesId { get; set; }
 
         [StringLength(255)]
-        [Display(Name = "Species Type")]
-        public string Type { get; set; }
+        [Display(Name = "Species")]
+        public string SpeciesType { get; set; }
 
         public string UserId { get; set; }
 

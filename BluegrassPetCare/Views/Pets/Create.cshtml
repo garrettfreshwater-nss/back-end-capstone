@@ -11,41 +11,70 @@
     <div class="col-md-4">
         <form asp-action="Create" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
             <div class="form-group">
                 <label asp-for="Pet.Name" class="control-label">Name</label>
                 <input asp-for="Pet.Name" class="form-control" />
                 <span asp-validation-for="Pet.Name" class="text-danger"></span>
             </div>
+
             <div class="form-group">
-                <label asp-for="Pet.OngoingProblems" class="control-label">OngoingProblems</label>
-                <textarea asp-for="Pet.OngoingProblems" class="form-control"></textarea>
-                <span asp-validation-for="Pet.OngoingProblems" class="text-danger"></span>
+                <label asp-for="Pet.SexId" class="control-label"></label>
+                <select asp-for="Pet.SexId" class="form-control" asp-items="@Model.SexTypeOptions">
+                    <option selected value="null"> Please select a category</option>
+                </select>
             </div>
+
             <div class="form-group">
-                <label asp-for="Pet.IsSpayedOrNeutered" class="control-label">Is Spayed or Neutered</label>
-                <input type="checkbox" asp-for="Pet.IsSpayedOrNeutered" class="form-control" />
-                <span asp-validation-for="Pet.IsSpayedOrNeutered" class="text-danger"></span>
+                <label asp-for="Pet.SpeciesId" class="control-label"></label>
+                <select asp-for="Pet.SpeciesId" class="form-control" asp-items="@Model.SpeciesTypeOptions">
+                    <option selected value="null"> Please select a category</option>
+                </select>
             </div>
+
             <div class="form-group">
-                <label asp-for="ImageFile" class="control-label">Upload an Image</label>
-                <input asp-for="ImageFile" class="form-control" type="file" />
-                <span asp-validation-for="ImageFile" class="text-danger"></span>
+                <label asp-for="Pet.BreedId" class="control-label"></label>
+                <select asp-for="Pet.BreedId" class="form-control" asp-items="@Model.BreedTypeOptions">
+                    <option selected value="null"> Please select a category</option>
+                </select>
             </div>
+
+            <div class="form-group">
+                <label asp-for="Pet.Color" class="col-form-label col-form-label-sm" for="inputSmall">Color</label>
+                <input asp-for="Pet.Color" class="form-control form-control-sm" type="text" placeholder="Color" id="inputSmall">
+                <span asp-validation-for="Pet.Color" class="text-danger"></span>
+            </div>
+
+
             <div class="form-group">
                 <label asp-for="Pet.Birthday" class="control-label">Birthday</label>
                 <input type="date" asp-for="Pet.Birthday" class="form-control" />
                 <span asp-validation-for="Pet.Birthday" class="text-danger"></span>
             </div>
 
-            @*<div class="form-group">
-                <label asp-for="SpeciesId" class="col-md-2 control-label"></label>
-                <div class="col-md-10">
-                    <select asp-for="SpeciesId">
-                        <option selected="Type" value="Type"></option>
-                    </select>
-                    <span asp-validation-for="SpeciesId.Type" class="text-danger" />
-                </div>
-            </div>*@
+            <div class="form-group">
+                <label asp-for="ImageFile" class="control-label">Upload an Image</label>
+                <input asp-for="ImageFile" class="form-control" type="file" />
+                <span asp-validation-for="ImageFile" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Pet.OngoingProblems" class="control-label">OngoingProblems</label>
+                <textarea asp-for="Pet.OngoingProblems" class="form-control"></textarea>
+                <span asp-validation-for="Pet.OngoingProblems" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Pet.CurrentMedications" class="control-label">CurrentMedications</label>
+                <textarea asp-for="Pet.CurrentMedications" class="form-control"></textarea>
+                <span asp-validation-for="Pet.CurrentMedications" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Pet.IsSpayedOrNeutered" class="control-label">Is Spayed or Neutered</label>
+                <input type="checkbox" asp-for="Pet.IsSpayedOrNeutered" class="form-control" />
+                <span asp-validation-for="Pet.IsSpayedOrNeutered" class="text-danger"></span>
+            </div>
 
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />

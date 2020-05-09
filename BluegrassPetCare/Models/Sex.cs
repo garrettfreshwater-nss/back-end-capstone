@@ -14,7 +14,7 @@ namespace BluegrassPetCare.Models
         
         [StringLength(255)]
         [Display(Name = "Sex")]
-        public string Type { get; set; }
+        public string SexType { get; set; }
 
         public virtual ICollection<Pet> Pets { get; set; }
     }

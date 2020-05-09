@@ -18,9 +18,6 @@
             <th>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.PetId)
-            </th>
-            <th>
                 @Html.DisplayNameFor(model => model.Name)
             </th>
             <th>
@@ -35,7 +32,7 @@
             <th>
                 @Html.DisplayNameFor(model => model.Color)
             </th>
-            <th></th>
+
         </tr>
     </thead>
     <tbody>
@@ -45,34 +42,44 @@
         {
             
             
-                <tr>
-                    <td>
-                        <a href=@Url.Action("Details", "Pet", new { id = item.PetId }) title="Details" class="links">
-                            <img style="max-height: 250px; max-width: 250px" src="~/images/@item.ImagePath" alt="menu item image" />
-                        </a>
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Name)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Sex)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Breed)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Species)
-                    </td>
-                   
-                       
+        <tr>
+            @if (item.ImagePath == null)
+            {
+                <td>
+                    @Html.DisplayFor(modelItem => item.ImagePath)
+                </td>
+            }
+            else
+            {
+                <td>
                     
-                   
-                        <td>
-                            @Html.ActionLink("Edit", "Edit", new { id = item.PetId })
-                            @Html.ActionLink("Details", "Details", new { id=item.PetId })                      
-                        </td>
-                    
-                </tr>
+                    <a href="@Url.Action("Details", "Pet",  new { Id = item.PetId })">
+                        <img src="~/images/@item.ImagePath" , style="width: 5em; height: auto;">
+                    </a>
+                </td>
+            }
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Species.Type)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Breed.BreedName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Sex.Type)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Color)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.PetId })
+                @Html.ActionLink("Details", "Details", new { id = item.PetId })
+                @Html.ActionLink("Delete", "Delete", new { id = item.PetId })
+            </td>
+
+        </tr>
             
         }
     </tbody>

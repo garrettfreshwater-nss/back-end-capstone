@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 
 namespace BluegrassPetCare.Controllers
@@ -80,9 +81,23 @@ namespace BluegrassPetCare.Controllers
         }
 
         // GET: Pets/Create
-        public ActionResult Create()
+        public async Task<ActionResult> CreateAsync()
         {
-            return View();
+            var breedTypes = await _context.Breed
+               .Select(b => new SelectListItem() { Text = b.BreedName, Value = b.BreedId.ToString() })
+               .ToListAsync();
+            var speciesTypes = await _context.Species
+                .Select(s => new SelectListItem() { Text = s.Type, Value = s.SpeciesId.ToString() })
+                .ToListAsync();
+            var sexTypes = await _context.Sex
+               .Select(s => new SelectListItem() { Text = s.Type, Value = s.SexId.ToString() })
+               .ToListAsync();
+            var viewmodel = new PetDetailViewModel();
+            viewmodel.SpeciesTypeOptions = speciesTypes;
+            viewmodel.BreedTypeOptions = breedTypes;
+            viewmodel.SexTypeOptions = sexTypes;
+            return View(viewmodel);
+
         }
 
         // POST: Pets/Create
@@ -97,13 +112,14 @@ namespace BluegrassPetCare.Controllers
                     Name = petDetailViewModel.Pet.Name,
                     Birthday = petDetailViewModel.Pet.Birthday,
                     Color = petDetailViewModel.Pet.Color,
-                    Species = petDetailViewModel.SpeciesId,
-                    Breed = petDetailViewModel.BreedId,
-                    Sex = petDetailViewModel.SexId,
+                    SpeciesId = petDetailViewModel.Pet.SpeciesId,
+                    BreedId = petDetailViewModel.Pet.BreedId,
+                    SexId = petDetailViewModel.Pet.SexId,
                     OngoingProblems = petDetailViewModel.Pet.OngoingProblems,
                     CurrentMedications = petDetailViewModel.Pet.CurrentMedications,
                     IsSpayedOrNeutered = petDetailViewModel.Pet.IsSpayedOrNeutered
                 };
+
 
                 var uploadPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\images");
                 if (petDetailViewModel.ImageFile != null)

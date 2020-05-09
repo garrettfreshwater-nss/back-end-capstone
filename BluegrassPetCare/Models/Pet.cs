@@ -25,7 +25,6 @@ namespace BluegrassPetCare.Models
          ErrorMessage = "special characters are not  allowed.")]
         public string Name { get; set; }
 
-
         public string Color { get; set; }
 
         [Required(ErrorMessage = "Species is required")]
@@ -33,10 +32,16 @@ namespace BluegrassPetCare.Models
         public int SpeciesId { get; set; }
         public Species Species { get; set; }
 
+
+
         [Required(ErrorMessage = "Breed is required")]
         [Display(Name = "Breed Type")]
         public int BreedId { get; set; }
         public Breed Breed { get; set; }
+
+
+        [Required(ErrorMessage = "Sex is required")]
+        [Display(Name = "Sex Type")]
         public int SexId { get; set; }
         public Sex Sex { get; set; }
 
