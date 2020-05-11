@@ -15,13 +15,13 @@ using Microsoft.EntityFrameworkCore;
 
 namespace BluegrassPetCare.Controllers
 {
-    public class PetsController : Controller
+    public class NotesController : Controller
     {
         private readonly ApplicationDbContext _context;
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly UserManager<ApplicationUser> _userManager;
 
-        public PetsController(ApplicationDbContext ctx, SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager)
+        public NotesController(ApplicationDbContext ctx, SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager)
         {
             _signInManager = signInManager;
             _userManager = userManager;
@@ -37,7 +37,7 @@ namespace BluegrassPetCare.Controllers
 
             if (searchString != null)
             {
-                var pet = await _context.Pet
+                var pet = await _context.Note
                     .Where(p => p.Name.Contains(searchString))
                     .Include(p => p.Breed)
                     .Include(p => p.Sex)
@@ -48,7 +48,7 @@ namespace BluegrassPetCare.Controllers
             }
             else
             {
-                var pet = await _context.Pet
+                var pet = await _context.Note
                     .Include(p => p.Breed)
                     .Include(p => p.Sex)
                     .Include(p => p.Species)
@@ -62,30 +62,30 @@ namespace BluegrassPetCare.Controllers
             // GET: MenuItems/Details/5
             public async Task<ActionResult> Details(int id)
         {
-            var pet = await _context.Pet
-                .FirstOrDefaultAsync(p => p.PetId == id);
+            var pet = await _context.Note
+                .FirstOrDefaultAsync(p => p.NoteId == id);
 
-            var viewModel = new PetDetailViewModel()
+            var viewModel = new NoteDetailViewModel()
             {
-                Pet = new Pet()
+                Note = new Note()
             };
 
-            viewModel.Pet.PetId = pet.PetId;
-            viewModel.Pet.Name = pet.Name;
-            viewModel.Pet.Color = pet.Color;
-            viewModel.Pet.ImagePath = pet.ImagePath;
-            viewModel.Pet.Birthday = pet.Birthday;
-            viewModel.Pet.Breed = pet.Breed;
-            viewModel.Pet.Sex = pet.Sex;
-            viewModel.Pet.Species = pet.Species;
-            viewModel.Pet.CurrentMedications = pet.CurrentMedications;
-            viewModel.Pet.OngoingProblems = pet.OngoingProblems;
+            viewModel.Note.NoteId = pet.NoteId;
+            viewModel.Note.Name = pet.Name;
+            viewModel.Note.Color = pet.Color;
+            viewModel.Note.ImagePath = pet.ImagePath;
+            viewModel.Note.Birthday = pet.Birthday;
+            viewModel.Note.Breed = pet.Breed;
+            viewModel.Note.Sex = pet.Sex;
+            viewModel.Note.Species = pet.Species;
+            viewModel.Note.CurrentMedications = pet.CurrentMedications;
+            viewModel.Note.OngoingProblems = pet.OngoingProblems;
 
 
             return View(viewModel);
         }
 
-        // GET: Pets/Create
+        // GET: Notes/Create
         public async Task<ActionResult> CreateAsync()
         {
             var breedTypes = await _context.Breed
@@ -97,7 +97,7 @@ namespace BluegrassPetCare.Controllers
             var sexTypes = await _context.Sex
                .Select(s => new SelectListItem() { Text = s.SexType, Value = s.SexId.ToString() })
                .ToListAsync();
-            var viewmodel = new PetDetailViewModel();
+            var viewmodel = new NoteDetailViewModel();
             viewmodel.SpeciesTypeOptions = speciesTypes;
             viewmodel.BreedTypeOptions = breedTypes;
             viewmodel.SexTypeOptions = sexTypes;
@@ -105,24 +105,24 @@ namespace BluegrassPetCare.Controllers
 
         }
 
-        // POST: Pets/Create
+        // POST: Notes/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create(PetDetailViewModel petDetailViewModel)
+        public async Task<ActionResult> Create(NoteDetailViewModel petDetailViewModel)
         {
             try
             {
-                var pet = new Pet
+                var pet = new Note
                 {
-                    Name = petDetailViewModel.Pet.Name,
-                    Birthday = petDetailViewModel.Pet.Birthday,
-                    Color = petDetailViewModel.Pet.Color,
-                    SpeciesId = petDetailViewModel.Pet.SpeciesId,
-                    BreedId = petDetailViewModel.Pet.BreedId,
-                    SexId = petDetailViewModel.Pet.SexId,
-                    OngoingProblems = petDetailViewModel.Pet.OngoingProblems,
-                    CurrentMedications = petDetailViewModel.Pet.CurrentMedications,
-                    IsSpayedOrNeutered = petDetailViewModel.Pet.IsSpayedOrNeutered
+                    Name = petDetailViewModel.Note.Name,
+                    Birthday = petDetailViewModel.Note.Birthday,
+                    Color = petDetailViewModel.Note.Color,
+                    SpeciesId = petDetailViewModel.Note.SpeciesId,
+                    BreedId = petDetailViewModel.Note.BreedId,
+                    SexId = petDetailViewModel.Note.SexId,
+                    OngoingProblems = petDetailViewModel.Note.OngoingProblems,
+                    CurrentMedications = petDetailViewModel.Note.CurrentMedications,
+                    IsSpayedOrNeutered = petDetailViewModel.Note.IsSpayedOrNeutered
                 };
 
 
@@ -137,7 +137,7 @@ namespace BluegrassPetCare.Controllers
                     }
                 }
 
-                _context.Pet.Add(pet);
+                _context.Note.Add(pet);
                 await _context.SaveChangesAsync();
 
                 return RedirectToAction(nameof(Index));
@@ -151,7 +151,7 @@ namespace BluegrassPetCare.Controllers
         // GET: MenuItems/Edit/5
         public async Task<ActionResult> Edit(int id)
         {
-            var pet = await _context.Pet.FirstOrDefaultAsync(p => p.PetId == id);
+            var pet = await _context.Note.FirstOrDefaultAsync(p => p.NoteId == id);
 
             return View(pet);
         }
@@ -159,11 +159,11 @@ namespace BluegrassPetCare.Controllers
         // POST: MenuItems/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit(int id, PetDetailViewModel petDetailViewModel)
+        public async Task<ActionResult> Edit(int id, NoteDetailViewModel petDetailViewModel)
         {
             try
             {
-                var petPet = new Pet()
+                var petNote = new Pet()
                 {
                     Name = petDetailViewModel.Pet.Name,
                     Birthday = petDetailViewModel.Pet.Birthday,
