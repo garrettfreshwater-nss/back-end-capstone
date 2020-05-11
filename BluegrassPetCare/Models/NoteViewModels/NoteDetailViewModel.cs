@@ -10,8 +10,8 @@ namespace BluegrassPetCare.Models.NoteViewModels
     public class NoteDetailViewModel
     {
         public int Id { get; set; }
+        public int MyProperty { get; set; }
         public Note Note { get; set; }
-        public Pet Pet { get; set; }
         public IFormFile ImageFile { get; set; }
         public List<SelectListItem> Pets { get; set; }
 

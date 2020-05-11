@@ -55,6 +55,10 @@ namespace BluegrassPetCare.Models
         [StringLength(255, ErrorMessage = "The Description must be less than 255 characters.")]
         public string OngoingProblems { get; set; }
 
+        public List<Note> Notes { get; set; }
+
+        public Note Note { get; set; }
+
         public Pet()
         {
             IsSpayedOrNeutered = false;

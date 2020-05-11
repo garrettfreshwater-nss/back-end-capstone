@@ -59,7 +59,7 @@ namespace BluegrassPetCare.Controllers
         }
             
 
-            // GET: MenuItems/Details/5
+            // GET: Pets/Details/5
             public async Task<ActionResult> Details(int id)
         {
             var pet = await _context.Pet
@@ -157,7 +157,7 @@ namespace BluegrassPetCare.Controllers
             }
         }
 
-        // GET: MenuItems/Edit/5
+        // GET: Pets/Edit/5
         public async Task<ActionResult> Edit(int id)
         {
             var pet = await _context.Pet.FirstOrDefaultAsync(p => p.PetId == id);
@@ -165,7 +165,7 @@ namespace BluegrassPetCare.Controllers
             return View(pet);
         }
 
-        // POST: MenuItems/Edit/5
+        // POST: Pets/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit(int id, PetDetailViewModel petDetailViewModel)
@@ -177,9 +177,6 @@ namespace BluegrassPetCare.Controllers
                     Name = petDetailViewModel.Pet.Name,
                     Birthday = petDetailViewModel.Pet.Birthday,
                     Color = petDetailViewModel.Pet.Color,
-                    SpeciesId = petDetailViewModel.Pet.SpeciesId,
-                    BreedId = petDetailViewModel.Pet.BreedId,
-                    SexId = petDetailViewModel.Pet.SexId,
                     OngoingProblems = petDetailViewModel.Pet.OngoingProblems,
                     CurrentMedications = petDetailViewModel.Pet.CurrentMedications,
                     IsSpayedOrNeutered = petDetailViewModel.Pet.IsSpayedOrNeutered

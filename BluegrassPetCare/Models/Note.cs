@@ -15,6 +15,8 @@ namespace BluegrassPetCare.Models
 
         public ApplicationUser User { get; set; }
 
+        public string UserId { get; set; }
+
         [DataType(DataType.Date)]
         [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
         public DateTime DateAdded { get; set; }
