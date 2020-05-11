@@ -48,9 +48,21 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Description)
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.UploadPath)
-            </td>
+            @if (item.UploadPath == null)
+            {
+                <td>
+                    @Html.DisplayFor(modelItem => item.UploadPath)
+                </td>
+            }
+            else
+            {
+                <td>
+
+                    <a href="@Url.Action("Details", "Pet",  new { Id = item.PetId })">
+                        <img src="~/pdfs/@item.UploadPath" , style="width: 5em; height: auto;">
+                    </a>
+                </td>
+            }
             <td>
                 @Html.DisplayFor(modelItem => item.Pet.PetId)
             </td>
