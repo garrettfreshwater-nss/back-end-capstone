@@ -31,13 +31,9 @@ namespace BluegrassPetCare.Models
         [RegularExpression(@"^[0-9a-zA-Z''-'\s]{1,256}$", ErrorMessage = "Special characters are not allowed.")]
         public string Description { get; set; }
 
-        [AllowNull]
         public string UploadPath { get; set; }
 
-        [Required(ErrorMessage = "Pet is required")]
-        [Display(Name = "Pet Name")]
         public int PetId { get; set; }
         public Pet Pet { get; set; }
-
     }
 }

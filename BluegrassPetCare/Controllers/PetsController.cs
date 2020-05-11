@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 using BluegrassPetCare.Data;
 using BluegrassPetCare.Models;
@@ -84,6 +85,8 @@ namespace BluegrassPetCare.Controllers
             viewModel.Species = pet.Species;
             viewModel.Pet.CurrentMedications = pet.CurrentMedications;
             viewModel.Pet.OngoingProblems = pet.OngoingProblems;
+            viewModel.Pet.IsSpayedOrNeutered = pet.IsSpayedOrNeutered;
+
 
 
             return View(viewModel);
@@ -160,9 +163,49 @@ namespace BluegrassPetCare.Controllers
         // GET: Pets/Edit/5
         public async Task<ActionResult> Edit(int id)
         {
-            var pet = await _context.Pet.FirstOrDefaultAsync(p => p.PetId == id);
+            var pet = await _context.Pet
+               .Include(p => p.Breed)
+               .Include(p => p.Sex)
+               .Include(p => p.Species)
+               .FirstOrDefaultAsync(p => p.PetId == id);
 
-            return View(pet);
+            var viewModel = new PetDetailViewModel()
+            {
+                Pet = new Pet()
+            };
+
+            viewModel.Pet.PetId = pet.PetId;
+            viewModel.Pet.UserId = pet.UserId;
+            viewModel.Pet.Name = pet.Name;
+            viewModel.Pet.Color = pet.Color;
+            viewModel.Pet.ImagePath = pet.ImagePath;
+            viewModel.Pet.Birthday = pet.Birthday;
+            viewModel.Pet.BreedId = pet.BreedId;
+            viewModel.Pet.SexId = pet.SexId;
+            viewModel.Pet.SpeciesId = pet.SpeciesId;
+            viewModel.Pet.CurrentMedications = pet.CurrentMedications;
+            viewModel.Pet.OngoingProblems = pet.OngoingProblems;
+            viewModel.Pet.IsSpayedOrNeutered = pet.IsSpayedOrNeutered;
+
+
+
+            var breedTypes = await _context.Breed
+               .Select(b => new SelectListItem() { Text = b.BreedName, Value = b.BreedId.ToString() })
+               .ToListAsync();
+            var speciesTypes = await _context.Species
+                .Select(s => new SelectListItem() { Text = s.SpeciesType, Value = s.SpeciesId.ToString() })
+                .ToListAsync();
+            var sexTypes = await _context.Sex
+               .Select(s => new SelectListItem() { Text = s.SexType, Value = s.SexId.ToString() })
+               .ToListAsync();
+            viewModel.SpeciesTypeOptions = speciesTypes;
+            viewModel.BreedTypeOptions = breedTypes;
+            viewModel.SexTypeOptions = sexTypes;
+            
+
+
+
+            return View(viewModel);
         }
 
         // POST: Pets/Edit/5
@@ -174,13 +217,28 @@ namespace BluegrassPetCare.Controllers
             {
                 var petPet = new Pet()
                 {
+                    PetId = id,
                     Name = petDetailViewModel.Pet.Name,
                     Birthday = petDetailViewModel.Pet.Birthday,
                     Color = petDetailViewModel.Pet.Color,
                     OngoingProblems = petDetailViewModel.Pet.OngoingProblems,
                     CurrentMedications = petDetailViewModel.Pet.CurrentMedications,
-                    IsSpayedOrNeutered = petDetailViewModel.Pet.IsSpayedOrNeutered
-                };
+                    IsSpayedOrNeutered = petDetailViewModel.Pet.IsSpayedOrNeutered,
+                    SpeciesId = petDetailViewModel.Pet.SpeciesId,
+                    BreedId = petDetailViewModel.Pet.BreedId,
+                    SexId = petDetailViewModel.Pet.SexId,
+            };
+
+                var uploadPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\images");
+                if (petDetailViewModel.ImageFile != null)
+                {
+                    var fileName = Guid.NewGuid().ToString() + petDetailViewModel.ImageFile.FileName;
+                    petPet.ImagePath = fileName;
+                    using (var fileStream = new FileStream(Path.Combine(uploadPath, fileName), FileMode.Create))
+                    {
+                        await petDetailViewModel.ImageFile.CopyToAsync(fileStream);
+                    }
+                }
 
                 _context.Pet.Update(petPet);
                 await _context.SaveChangesAsync();

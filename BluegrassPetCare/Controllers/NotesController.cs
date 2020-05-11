@@ -40,7 +40,6 @@ namespace BluegrassPetCare.Controllers
                 var note = await _context.Note
                     .Where(n => n.Title.Contains(searchString))
                     .Include(n => n.Pet)
-                    .Include(n => n.Description)
                     .ToListAsync();
 
                 return View(note);
@@ -49,7 +48,6 @@ namespace BluegrassPetCare.Controllers
             {
                 var note = await _context.Note
                     .Include(n => n.Pet)
-                    .Include(n => n.Description)
                     .ToListAsync();
 
                 return View(note);
@@ -61,9 +59,9 @@ namespace BluegrassPetCare.Controllers
             public async Task<ActionResult> Details(int id)
         {
             var note = await _context.Note
-                .Include(pn => pn.PetId)
-                .Include(pn => pn.UserId)
-                .FirstOrDefaultAsync(pn => pn.NoteId == id);
+                .Include(n => n.PetId)
+                .Include(n => n.UserId)
+                .FirstOrDefaultAsync(n => n.NoteId == id);
 
             var viewModel = new NoteDetailViewModel()
             {

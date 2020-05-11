@@ -132,7 +132,7 @@ namespace BluegrassPetCare.Migrations
                         {
                             Id = "00000000-ffff-ffff-ffff-ffffffffffff",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "fb8714a3-8de5-42e1-929f-1bcf00406960",
+                            ConcurrencyStamp = "578570a5-e245-4c19-889f-3e3487770d33",
                             Email = "admin@admin.com",
                             EmailConfirmed = true,
                             FirstName = "Admina",
@@ -142,7 +142,7 @@ namespace BluegrassPetCare.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@ADMIN.COM",
                             NormalizedUserName = "ADMIN@ADMIN.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEKKM1jofsl9FMi4OaUKUwEgFY753O0LCJvErgAGQsqBqy1xNASblQhiZFAr5/8vBFg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEGAEWnawmPRmZvIlm8BqAXNH+/KIi6XuuySXRylsS5j5DHyCq3UjSFceSvfH+mTBCQ==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "7f434309-a4d9-48e9-9ebb-8803db794577",
                             TwoFactorEnabled = false,
@@ -539,7 +539,7 @@ namespace BluegrassPetCare.Migrations
             modelBuilder.Entity("BluegrassPetCare.Models.Note", b =>
                 {
                     b.HasOne("BluegrassPetCare.Models.Pet", "Pet")
-                        .WithMany()
+                        .WithMany("Notes")
                         .HasForeignKey("PetId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
