@@ -63,6 +63,9 @@ namespace BluegrassPetCare.Controllers
             public async Task<ActionResult> Details(int id)
         {
             var pet = await _context.Pet
+                .Include(p => p.Breed)
+                .Include(p => p.Sex)
+                .Include(p => p.Species)
                 .FirstOrDefaultAsync(p => p.PetId == id);
 
             var viewModel = new PetDetailViewModel()
@@ -71,14 +74,14 @@ namespace BluegrassPetCare.Controllers
             };
 
             viewModel.Pet.PetId = pet.PetId;
-            viewModel.Pet.User = pet.User;
+            viewModel.Pet.UserId = pet.UserId;
             viewModel.Pet.Name = pet.Name;
             viewModel.Pet.Color = pet.Color;
-          
+            viewModel.Pet.ImagePath = pet.ImagePath;
             viewModel.Pet.Birthday = pet.Birthday;
-       
-          
-           
+            viewModel.Breed = pet.Breed;
+            viewModel.Sex = pet.Sex;
+            viewModel.Species = pet.Species;
             viewModel.Pet.CurrentMedications = pet.CurrentMedications;
             viewModel.Pet.OngoingProblems = pet.OngoingProblems;
 
@@ -113,10 +116,13 @@ namespace BluegrassPetCare.Controllers
         {
             try
             {
+                var user = await GetCurrentUserAsync();
+
+
                 var pet = new Pet
                 {
+                    UserId = user.Id,
                     Name = petDetailViewModel.Pet.Name,
-                    User = petDetailViewModel.Pet.User,
                     Birthday = petDetailViewModel.Pet.Birthday,
                     Color = petDetailViewModel.Pet.Color,
                     SpeciesId = petDetailViewModel.Pet.SpeciesId,
@@ -126,6 +132,7 @@ namespace BluegrassPetCare.Controllers
                     CurrentMedications = petDetailViewModel.Pet.CurrentMedications,
                     IsSpayedOrNeutered = petDetailViewModel.Pet.IsSpayedOrNeutered
                 };
+
 
 
                 var uploadPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\images");
@@ -216,7 +223,7 @@ namespace BluegrassPetCare.Controllers
             var pet = await _context.Pet.FindAsync(id);
             _context.Pet.Remove(pet);
             await _context.SaveChangesAsync();
-            return RedirectToPage("/Pets");
+            return RedirectToAction("Index","Pets");
         }
         private Task<ApplicationUser> GetCurrentUserAsync() => _userManager.GetUserAsync(HttpContext.User);
     }

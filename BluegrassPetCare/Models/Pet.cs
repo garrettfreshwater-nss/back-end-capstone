@@ -14,6 +14,7 @@ namespace BluegrassPetCare.Models
         public int PetId { get; set; }
 
         public ApplicationUser User { get; set; }
+        public string UserId { get; set; }
 
         public string ImagePath { get; set; }
 
