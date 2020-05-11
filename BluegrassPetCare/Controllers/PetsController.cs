@@ -71,13 +71,14 @@ namespace BluegrassPetCare.Controllers
             };
 
             viewModel.Pet.PetId = pet.PetId;
+            viewModel.Pet.User = pet.User;
             viewModel.Pet.Name = pet.Name;
             viewModel.Pet.Color = pet.Color;
-            viewModel.Pet.ImagePath = pet.ImagePath;
+          
             viewModel.Pet.Birthday = pet.Birthday;
-            viewModel.Pet.Breed = pet.Breed;
-            viewModel.Pet.Sex = pet.Sex;
-            viewModel.Pet.Species = pet.Species;
+       
+          
+           
             viewModel.Pet.CurrentMedications = pet.CurrentMedications;
             viewModel.Pet.OngoingProblems = pet.OngoingProblems;
 
@@ -115,6 +116,7 @@ namespace BluegrassPetCare.Controllers
                 var pet = new Pet
                 {
                     Name = petDetailViewModel.Pet.Name,
+                    User = petDetailViewModel.Pet.User,
                     Birthday = petDetailViewModel.Pet.Birthday,
                     Color = petDetailViewModel.Pet.Color,
                     SpeciesId = petDetailViewModel.Pet.SpeciesId,

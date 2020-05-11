@@ -12,10 +12,15 @@ namespace BluegrassPetCare.Models.PetViewModels
     public class PetDetailViewModel
     {
         public Pet Pet { get; set; }
+
+        public ApplicationUser User { get; set; }
         public IFormFile ImageFile { get; set; }
         public List<SelectListItem> SpeciesTypeOptions { get; set; }
+        public Species Species { get; set; }
         public List<SelectListItem> BreedTypeOptions { get; set; }
+        public Breed Breed { get; set; }
         public List<SelectListItem> SexTypeOptions { get; set; }
+        public Sex Sex { get; set; }
 
     }
 }

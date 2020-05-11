@@ -5,7 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using BluegrassPetCare.Data;
 using BluegrassPetCare.Models;
-using BluegrassPetCare.Models.PetViewModels;
+using BluegrassPetCare.Models.NoteViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
@@ -37,24 +37,20 @@ namespace BluegrassPetCare.Controllers
 
             if (searchString != null)
             {
-                var pet = await _context.Note
-                    .Where(p => p.Name.Contains(searchString))
-                    .Include(p => p.Breed)
-                    .Include(p => p.Sex)
-                    .Include(p => p.Species)
+                var note = await _context.Note
+                    .Where(n => n.Title.Contains(searchString))
+                    .Include(n => n.Pet)
                     .ToListAsync();
 
-                return View(pet);
+                return View(note);
             }
             else
             {
-                var pet = await _context.Note
-                    .Include(p => p.Breed)
-                    .Include(p => p.Sex)
-                    .Include(p => p.Species)
+                var note = await _context.Note
+                    .Include(n => n.Pet)
                     .ToListAsync();
 
-                return View(pet);
+                return View(note);
             }
         }
             
@@ -62,25 +58,20 @@ namespace BluegrassPetCare.Controllers
             // GET: MenuItems/Details/5
             public async Task<ActionResult> Details(int id)
         {
-            var pet = await _context.Note
-                .FirstOrDefaultAsync(p => p.NoteId == id);
+            var note = await _context.Note
+                .FirstOrDefaultAsync(n => n.NoteId == id);
 
             var viewModel = new NoteDetailViewModel()
             {
                 Note = new Note()
             };
 
-            viewModel.Note.NoteId = pet.NoteId;
-            viewModel.Note.Name = pet.Name;
-            viewModel.Note.Color = pet.Color;
-            viewModel.Note.ImagePath = pet.ImagePath;
-            viewModel.Note.Birthday = pet.Birthday;
-            viewModel.Note.Breed = pet.Breed;
-            viewModel.Note.Sex = pet.Sex;
-            viewModel.Note.Species = pet.Species;
-            viewModel.Note.CurrentMedications = pet.CurrentMedications;
-            viewModel.Note.OngoingProblems = pet.OngoingProblems;
-
+            viewModel.Note.NoteId = note.NoteId;
+            viewModel.Note.Title = note.Title;
+            viewModel.Note.UploadPath = note.UploadPath;
+            viewModel.Note.DateAdded = note.DateAdded;
+            viewModel.Note.Description = note.Description;
+            viewModel.Note.PetId = note.PetId;
 
             return View(viewModel);
         }
@@ -88,19 +79,11 @@ namespace BluegrassPetCare.Controllers
         // GET: Notes/Create
         public async Task<ActionResult> CreateAsync()
         {
-            var breedTypes = await _context.Breed
-               .Select(b => new SelectListItem() { Text = b.BreedName, Value = b.BreedId.ToString() })
-               .ToListAsync();
-            var speciesTypes = await _context.Species
-                .Select(s => new SelectListItem() { Text = s.SpeciesType, Value = s.SpeciesId.ToString() })
-                .ToListAsync();
-            var sexTypes = await _context.Sex
-               .Select(s => new SelectListItem() { Text = s.SexType, Value = s.SexId.ToString() })
+            var petTypes = await _context.Pet
+               .Select(b => new SelectListItem() { Text = b.Name, Value = b.PetId.ToString() })
                .ToListAsync();
             var viewmodel = new NoteDetailViewModel();
-            viewmodel.SpeciesTypeOptions = speciesTypes;
-            viewmodel.BreedTypeOptions = breedTypes;
-            viewmodel.SexTypeOptions = sexTypes;
+            viewmodel.Pets = petTypes;
             return View(viewmodel);
 
         }
@@ -108,36 +91,33 @@ namespace BluegrassPetCare.Controllers
         // POST: Notes/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create(NoteDetailViewModel petDetailViewModel)
+        public async Task<ActionResult> Create(NoteDetailViewModel noteDetailViewModel)
         {
             try
             {
-                var pet = new Note
+                var note = new Note
                 {
-                    Name = petDetailViewModel.Note.Name,
-                    Birthday = petDetailViewModel.Note.Birthday,
-                    Color = petDetailViewModel.Note.Color,
-                    SpeciesId = petDetailViewModel.Note.SpeciesId,
-                    BreedId = petDetailViewModel.Note.BreedId,
-                    SexId = petDetailViewModel.Note.SexId,
-                    OngoingProblems = petDetailViewModel.Note.OngoingProblems,
-                    CurrentMedications = petDetailViewModel.Note.CurrentMedications,
-                    IsSpayedOrNeutered = petDetailViewModel.Note.IsSpayedOrNeutered
-                };
+
+                    NoteId = noteDetailViewModel.Note.NoteId,
+                    Title = noteDetailViewModel.Note.Title,
+                    DateAdded = noteDetailViewModel.Note.DateAdded,
+                    Description = noteDetailViewModel.Note.Description,
+                    PetId = noteDetailViewModel.Note.PetId
+            };
 
 
-                var uploadPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\images");
-                if (petDetailViewModel.ImageFile != null)
+                var uploadPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\pdfs");
+                if (noteDetailViewModel.ImageFile != null)
                 {
-                    var fileName = Guid.NewGuid().ToString() + petDetailViewModel.ImageFile.FileName;
-                    pet.ImagePath = fileName;
+                    var fileName = Guid.NewGuid().ToString() + noteDetailViewModel.ImageFile.FileName;
+                    note.UploadPath = fileName;
                     using (var fileStream = new FileStream(Path.Combine(uploadPath, fileName), FileMode.Create))
                     {
-                        await petDetailViewModel.ImageFile.CopyToAsync(fileStream);
+                        await noteDetailViewModel.ImageFile.CopyToAsync(fileStream);
                     }
                 }
 
-                _context.Note.Add(pet);
+                _context.Note.Add(note);
                 await _context.SaveChangesAsync();
 
                 return RedirectToAction(nameof(Index));
@@ -151,32 +131,28 @@ namespace BluegrassPetCare.Controllers
         // GET: MenuItems/Edit/5
         public async Task<ActionResult> Edit(int id)
         {
-            var pet = await _context.Note.FirstOrDefaultAsync(p => p.NoteId == id);
+            var note = await _context.Note.FirstOrDefaultAsync(n => n.NoteId == id);
 
-            return View(pet);
+            return View(note);
         }
 
         // POST: MenuItems/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit(int id, NoteDetailViewModel petDetailViewModel)
+        public async Task<ActionResult> Edit(int id, NoteDetailViewModel noteDetailViewModel)
         {
             try
             {
-                var petNote = new Pet()
+                var petNote = new Note()
                 {
-                    Name = petDetailViewModel.Pet.Name,
-                    Birthday = petDetailViewModel.Pet.Birthday,
-                    Color = petDetailViewModel.Pet.Color,
-                    SpeciesId = petDetailViewModel.Pet.SpeciesId,
-                    BreedId = petDetailViewModel.Pet.BreedId,
-                    SexId = petDetailViewModel.Pet.SexId,
-                    OngoingProblems = petDetailViewModel.Pet.OngoingProblems,
-                    CurrentMedications = petDetailViewModel.Pet.CurrentMedications,
-                    IsSpayedOrNeutered = petDetailViewModel.Pet.IsSpayedOrNeutered
+                    NoteId = noteDetailViewModel.Note.NoteId,
+                    Title = noteDetailViewModel.Note.Title,
+                    DateAdded = noteDetailViewModel.Note.DateAdded,
+                    Description = noteDetailViewModel.Note.Description,
+                    PetId = noteDetailViewModel.Note.PetId
                 };
 
-                _context.Pet.Update(petPet);
+                _context.Note.Update(petNote);
                 await _context.SaveChangesAsync();
 
                 return RedirectToAction(nameof(Index));
@@ -195,14 +171,14 @@ namespace BluegrassPetCare.Controllers
                 return NotFound();
             }
 
-            var pet = await _context.Pet
-                .FirstOrDefaultAsync(p => p.PetId == id);
-            if (pet == null)
+            var note = await _context.Note
+                .FirstOrDefaultAsync(n => n.NoteId == id);
+            if (note == null)
             {
                 return NotFound();
             }
 
-            return View(pet);
+            return View(note);
 
         }
 
@@ -211,8 +187,8 @@ namespace BluegrassPetCare.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Delete(int id)
         {
-            var pet = await _context.Pet.FindAsync(id);
-            _context.Pet.Remove(pet);
+            var note = await _context.Pet.FindAsync(id);
+            _context.Pet.Remove(note);
             await _context.SaveChangesAsync();
             return RedirectToPage("/Pets");
         }

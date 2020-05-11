@@ -1,0 +1,92 @@
+﻿@model BluegrassPetCare.Models.PetViewModels.PetDetailViewModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Pet</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Pet.User)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Pet.User)
+        </dd>
+        @if (Model.Pet.ImagePath == null)
+        {
+
+        }
+        else
+        {
+
+            <dd class="col-sm-12">
+                <img src="~/images/@Model.Pet.ImagePath" style="width: 8em; height: auto;" />
+            </dd>
+
+
+        }
+       
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Pet.Name)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Pet.Name)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Pet.Color)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Pet.Color)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Species)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Species)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Breed)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Breed)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Sex)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Sex)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Pet.IsSpayedOrNeutered)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Pet.IsSpayedOrNeutered)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Pet.Birthday)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Pet.Birthday)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Pet.CurrentMedications)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Pet.CurrentMedications)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Pet.OngoingProblems)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Pet.OngoingProblems)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.Pet.PetId">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>
