@@ -28,7 +28,7 @@
                 @Html.DisplayNameFor(model => model.UploadPath)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Pet)
+                @Html.DisplayNameFor(model => model.Pet.Name)
             </th>
             <th></th>
         </tr>
@@ -38,6 +38,9 @@
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.User.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Pet.Name)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.DateAdded)
@@ -58,13 +61,14 @@
             {
                 <td>
 
-                    <a href="@Url.Action("Details", "Pet",  new { Id = item.PetId })">
-                        <img src="~/pdfs/@item.UploadPath" , style="width: 5em; height: auto;">
+                    <a href="@Url.Action("Details", "Note",  new { Id = item.NoteId })">
+                        <embed src="~/pdfs/@item.UploadPath" , style="width: 10em; height: auto;">
+
                     </a>
                 </td>
             }
             <td>
-                @Html.DisplayFor(modelItem => item.Pet.PetId)
+                @Html.DisplayFor(modelItem => item.Pet.Name)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.NoteId">Edit</a> |
