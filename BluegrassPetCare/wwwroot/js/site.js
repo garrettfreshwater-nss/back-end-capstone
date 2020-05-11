@@ -15,6 +15,11 @@ function clickListener() {
             else {
                 contentTarget.classList.add("hidden")
             }
+
+            foreach(var item in contentTarget.classList);
+            {
+                contentTarget.classList.remove(item)
+            }
         }
     )
 }

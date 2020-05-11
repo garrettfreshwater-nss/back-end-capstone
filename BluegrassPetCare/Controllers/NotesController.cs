@@ -85,9 +85,9 @@ namespace BluegrassPetCare.Controllers
             var petTypes = await _context.Pet
                .Select(b => new SelectListItem() { Text = b.Name, Value = b.PetId.ToString() })
                .ToListAsync();
-            var viewmodel = new NoteDetailViewModel();
-            viewmodel.Pets = petTypes;
-            return View(viewmodel);
+            var viewModel = new NoteDetailViewModel();
+            viewModel.PetsTypeOptions = petTypes;
+            return View(viewModel);
 
         }
 
