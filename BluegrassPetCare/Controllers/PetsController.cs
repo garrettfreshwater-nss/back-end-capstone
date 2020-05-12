@@ -241,7 +241,7 @@ namespace BluegrassPetCare.Controllers
                 //};
 
                 var uploadPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\images");
-                if (petDetailViewModel.ImagePath != null)
+                if (petDetailViewModel.ImageFile != null)
                 {
                     var fileName = Guid.NewGuid().ToString() + petDetailViewModel.ImageFile.FileName;
                     editPet.ImagePath = fileName;

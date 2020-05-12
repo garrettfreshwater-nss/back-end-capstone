@@ -137,9 +137,34 @@ namespace BluegrassPetCare.Controllers
         // GET: Notes/Edit/5
         public async Task<ActionResult> Edit(int id)
         {
-            var note = await _context.Note.FirstOrDefaultAsync(n => n.NoteId == id);
+            var note = await _context.Note
+                .Include(p => p.Pet)
+                .FirstOrDefaultAsync(n => n.NoteId == id);
 
-            return View(note);
+
+            var viewModel = new NoteDetailViewModel()
+            {
+                Note = new Note()
+            };
+
+
+            viewModel.Note.NoteId = note.NoteId;
+            viewModel.Note.UserId = note.UserId;
+            viewModel.Note.Title = note.Title;
+            viewModel.Note.Description = note.Description;
+            viewModel.Note.UploadPath = note.UploadPath;
+            viewModel.Note.PetId = note.PetId;
+            
+
+            var petTypes = await _context.Pet
+               .Select(b => new SelectListItem() { Text = b.Name, Value = b.PetId.ToString() })
+               .ToListAsync();
+           
+
+            viewModel.PetsTypeOptions = petTypes;
+            return View(viewModel);
+
+
         }
 
         // POST: Notes/Edit/5
@@ -149,16 +174,25 @@ namespace BluegrassPetCare.Controllers
         {
             try
             {
-                var petNote = new Note()
-                {
-                    NoteId = noteDetailViewModel.Note.NoteId,
-                    Title = noteDetailViewModel.Note.Title,
-                    DateAdded = noteDetailViewModel.Note.DateAdded,
-                    Description = noteDetailViewModel.Note.Description,
-                    PetId = noteDetailViewModel.Note.PetId
-                };
 
-                _context.Note.Update(petNote);
+                var editNote = await _context.Note
+                    .FirstOrDefaultAsync(p => p.NoteId == id);
+                editNote.Title = noteDetailViewModel.Note.Title;
+                editNote.DateAdded = noteDetailViewModel.Note.DateAdded;
+                editNote.Description = noteDetailViewModel.Note.Description;
+                editNote.PetId = noteDetailViewModel.Note.PetId;
+
+
+                //var petNote = new Note()
+                //{
+                //    NoteId = noteDetailViewModel.Note.NoteId,
+                //    Title = noteDetailViewModel.Note.Title,
+                //    DateAdded = noteDetailViewModel.Note.DateAdded,
+                //    Description = noteDetailViewModel.Note.Description,
+                //    PetId = noteDetailViewModel.Note.PetId
+                //};
+
+                _context.Note.Update(editNote);
                 await _context.SaveChangesAsync();
 
                 return RedirectToAction(nameof(Index));
