@@ -187,8 +187,6 @@ namespace BluegrassPetCare.Controllers
             viewModel.Pet.OngoingProblems = pet.OngoingProblems;
             viewModel.Pet.IsSpayedOrNeutered = pet.IsSpayedOrNeutered;
 
-
-
             var breedTypes = await _context.Breed
                .Select(b => new SelectListItem() { Text = b.BreedName, Value = b.BreedId.ToString() })
                .ToListAsync();
@@ -215,32 +213,45 @@ namespace BluegrassPetCare.Controllers
         {
             try
             {
-                var petPet = new Pet()
-                {
-                    PetId = id,
-                    Name = petDetailViewModel.Pet.Name,
-                    Birthday = petDetailViewModel.Pet.Birthday,
-                    Color = petDetailViewModel.Pet.Color,
-                    OngoingProblems = petDetailViewModel.Pet.OngoingProblems,
-                    CurrentMedications = petDetailViewModel.Pet.CurrentMedications,
-                    IsSpayedOrNeutered = petDetailViewModel.Pet.IsSpayedOrNeutered,
-                    SpeciesId = petDetailViewModel.Pet.SpeciesId,
-                    BreedId = petDetailViewModel.Pet.BreedId,
-                    SexId = petDetailViewModel.Pet.SexId,
-            };
+                var editPet = await _context.Pet
+                    .FirstOrDefaultAsync(p => p.PetId == id);
+                editPet.Name = petDetailViewModel.Pet.Name;
+                editPet.Birthday = petDetailViewModel.Pet.Birthday;
+                editPet.Color = petDetailViewModel.Pet.Color;
+                editPet.OngoingProblems = petDetailViewModel.Pet.OngoingProblems;
+                editPet.CurrentMedications = petDetailViewModel.Pet.CurrentMedications;
+                editPet.IsSpayedOrNeutered = petDetailViewModel.Pet.IsSpayedOrNeutered;
+                editPet.SpeciesId = petDetailViewModel.Pet.SpeciesId;
+                editPet.BreedId = petDetailViewModel.Pet.BreedId;
+                editPet.SexId = petDetailViewModel.Pet.SexId;
+
+
+                //var petPet = new Pet()
+                //{
+                //    PetId = id,
+                //    Name = petDetailViewModel.Pet.Name,
+                //    Birthday = petDetailViewModel.Pet.Birthday,
+                //    Color = petDetailViewModel.Pet.Color,
+                //    OngoingProblems = petDetailViewModel.Pet.OngoingProblems,
+                //    CurrentMedications = petDetailViewModel.Pet.CurrentMedications,
+                //    IsSpayedOrNeutered = petDetailViewModel.Pet.IsSpayedOrNeutered,
+                //    SpeciesId = petDetailViewModel.Pet.SpeciesId,
+                //    BreedId = petDetailViewModel.Pet.BreedId,
+                //    SexId = petDetailViewModel.Pet.SexId,
+                //};
 
                 var uploadPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\images");
-                if (petDetailViewModel.ImageFile != null)
+                if (petDetailViewModel.ImagePath != null)
                 {
                     var fileName = Guid.NewGuid().ToString() + petDetailViewModel.ImageFile.FileName;
-                    petPet.ImagePath = fileName;
+                    editPet.ImagePath = fileName;
                     using (var fileStream = new FileStream(Path.Combine(uploadPath, fileName), FileMode.Create))
                     {
                         await petDetailViewModel.ImageFile.CopyToAsync(fileStream);
                     }
                 }
 
-                _context.Pet.Update(petPet);
+                _context.Pet.Update(editPet);
                 await _context.SaveChangesAsync();
 
                 return RedirectToAction(nameof(Index));

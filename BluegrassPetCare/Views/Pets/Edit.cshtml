@@ -22,7 +22,7 @@
 
             <div class="col-md-6">
                 <div class="col-md-10">
-                    <img style="max-height: 500px; max-width: 500px" src="~/images/@Model.Pet.ImagePath" alt="cool image" />
+                    <img style="max-height: 400px; max-width: 400px" src="~/images/@Model.Pet.ImagePath" alt="cool image" />
                 </div>
             </div>
 
@@ -31,6 +31,7 @@
                 <label asp-for="ImageFile">Add Image?</label><br>
                 <input id="image-upload-button" asp-for="ImageFile" type="button" class="form-control" value="Add Image">
             </div>
+
             <div class="form-group hidden" id="image-input">
                 <label asp-for="ImageFile" class="control-label"></label>
                 <input asp-for="ImageFile" type="file" class="form-control" />
