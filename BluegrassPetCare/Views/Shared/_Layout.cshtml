@@ -36,7 +36,7 @@
                         @if (SignInManager.IsSignedIn(User))
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Pets" asp-action="Index">Pets</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Pets" asp-action="Index">Your Pets</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Pets" asp-action="Create">Add Your Pet</a>
@@ -63,6 +63,7 @@
     <div class="container">
         <main role="main" class="pb-3">
             @RenderBody()
+            <img src="\images\d9ceba7c-4f6a-4ffd-989b-4a6a83f05969Daco_388632.png" height="550" width="550"><img src="\images\f68e3e65-740b-4647-9f48-d699aa4dc922grumpy-cat-png.png" height="550" width="550">
         </main>
     </div>
 
