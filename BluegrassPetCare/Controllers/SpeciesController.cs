@@ -131,7 +131,7 @@ namespace BluegrassPetCare.Controllers
         var species = await _context.Species.FindAsync(id);
         _context.Species.Remove(species);
         await _context.SaveChangesAsync();
-        return RedirectToPage("/Account/Manage/Species", new { area = "Identity" });
+        return RedirectToAction("Index","Species");
     }
     private Task<ApplicationUser> GetCurrentUserAsync() => _userManager.GetUserAsync(HttpContext.User);
 }

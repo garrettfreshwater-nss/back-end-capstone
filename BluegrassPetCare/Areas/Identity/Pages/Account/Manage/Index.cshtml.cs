@@ -24,7 +24,6 @@ namespace BluegrassPetCare.Areas.Identity.Pages.Account.Manage
         }
 
         public string Username { get; set; }
-        public string ImagePath { get; set; }
 
         [TempData]
         public string StatusMessage { get; set; }
@@ -46,7 +45,7 @@ namespace BluegrassPetCare.Areas.Identity.Pages.Account.Manage
 
 
             Username = userName;
-            ImagePath = ImagePath;
+            
 
             Input = new InputModel
             {

@@ -59,8 +59,7 @@ namespace BluegrassPetCare.Controllers
             public async Task<ActionResult> Details(int id)
         {
             var note = await _context.Note
-                .Include(n => n.PetId)
-                .Include(n => n.UserId)
+                .Include(n => n.Pet)
                 .FirstOrDefaultAsync(n => n.NoteId == id);
 
             var viewModel = new NoteDetailViewModel()
@@ -183,14 +182,18 @@ namespace BluegrassPetCare.Controllers
                 editNote.PetId = noteDetailViewModel.Note.PetId;
 
 
-                //var petNote = new Note()
-                //{
-                //    NoteId = noteDetailViewModel.Note.NoteId,
-                //    Title = noteDetailViewModel.Note.Title,
-                //    DateAdded = noteDetailViewModel.Note.DateAdded,
-                //    Description = noteDetailViewModel.Note.Description,
-                //    PetId = noteDetailViewModel.Note.PetId
-                //};
+
+                var uploadPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\pdfs");
+                if (noteDetailViewModel.ImageFile != null)
+                {
+                    var fileName = Guid.NewGuid().ToString() + noteDetailViewModel.ImageFile.FileName;
+                    editNote.UploadPath = fileName;
+                    using (var fileStream = new FileStream(Path.Combine(uploadPath, fileName), FileMode.Create))
+                    {
+                        await noteDetailViewModel.ImageFile.CopyToAsync(fileStream);
+                    }
+                }
+
 
                 _context.Note.Update(editNote);
                 await _context.SaveChangesAsync();
@@ -227,10 +230,10 @@ namespace BluegrassPetCare.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Delete(int id)
         {
-            var note = await _context.Pet.FindAsync(id);
-            _context.Pet.Remove(note);
+            var note = await _context.Note.FindAsync(id);
+            _context.Note.Remove(note);
             await _context.SaveChangesAsync();
-            return RedirectToAction("Index");
+            return RedirectToAction("Index","Notes");
         }
         private Task<ApplicationUser> GetCurrentUserAsync() => _userManager.GetUserAsync(HttpContext.User);
     }

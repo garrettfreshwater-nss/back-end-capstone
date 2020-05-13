@@ -68,6 +68,7 @@ namespace BluegrassPetCare.Controllers
                 .Include(p => p.Breed)
                 .Include(p => p.Sex)
                 .Include(p => p.Species)
+                .Include(p => p.Notes)
                 .FirstOrDefaultAsync(p => p.PetId == id);
 
             var viewModel = new PetDetailViewModel()
@@ -84,6 +85,7 @@ namespace BluegrassPetCare.Controllers
             viewModel.Breed = pet.Breed;
             viewModel.Sex = pet.Sex;
             viewModel.Species = pet.Species;
+            viewModel.Pet.Notes = pet.Notes;
             viewModel.Pet.CurrentMedications = pet.CurrentMedications;
             viewModel.Pet.OngoingProblems = pet.OngoingProblems;
             viewModel.Pet.IsSpayedOrNeutered = pet.IsSpayedOrNeutered;
@@ -134,7 +136,7 @@ namespace BluegrassPetCare.Controllers
                     SexId = petDetailViewModel.Pet.SexId,
                     OngoingProblems = petDetailViewModel.Pet.OngoingProblems,
                     CurrentMedications = petDetailViewModel.Pet.CurrentMedications,
-                    IsSpayedOrNeutered = petDetailViewModel.Pet.IsSpayedOrNeutered
+                    IsSpayedOrNeutered = petDetailViewModel.Pet.IsSpayedOrNeutered,
                 };
 
 
@@ -176,6 +178,7 @@ namespace BluegrassPetCare.Controllers
                .Include(p => p.Breed)
                .Include(p => p.Sex)
                .Include(p => p.Species)
+               .Include(p => p.Notes)
                .FirstOrDefaultAsync(p => p.PetId == id);
 
             var viewModel = new PetDetailViewModel()
@@ -195,6 +198,7 @@ namespace BluegrassPetCare.Controllers
             viewModel.Pet.CurrentMedications = pet.CurrentMedications;
             viewModel.Pet.OngoingProblems = pet.OngoingProblems;
             viewModel.Pet.IsSpayedOrNeutered = pet.IsSpayedOrNeutered;
+           
 
             var breedTypes = await _context.Breed
                .Select(b => new SelectListItem() { Text = b.BreedName, Value = b.BreedId.ToString() })
@@ -205,6 +209,7 @@ namespace BluegrassPetCare.Controllers
             var sexTypes = await _context.Sex
                .Select(s => new SelectListItem() { Text = s.SexType, Value = s.SexId.ToString() })
                .ToListAsync();
+           
             viewModel.SpeciesTypeOptions = speciesTypes;
             viewModel.BreedTypeOptions = breedTypes;
             viewModel.SexTypeOptions = sexTypes;

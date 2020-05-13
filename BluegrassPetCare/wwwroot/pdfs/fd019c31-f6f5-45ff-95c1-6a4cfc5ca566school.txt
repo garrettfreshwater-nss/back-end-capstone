@@ -1,0 +1,7 @@
+MODELS == REPRESENT DATABASE TABLES IN CSHARP.
+VIEWS == HTML WITH THE POWER OF CSHARP. 
+---- RIGHT CLICK METHOD NAME OF INDEX on CONTROLLER and select 
+---------ADD MVC VIEW. Select template (list for all xxx), and select model class (list of what ?). ADD.
+CONTROLLERS == HANDLE HTTP REQUEST. STARTUP.CS
+-------Look for a certian patern
+_-------- ? means it is optional
