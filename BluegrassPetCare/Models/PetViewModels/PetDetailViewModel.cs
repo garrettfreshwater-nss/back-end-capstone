@@ -32,7 +32,6 @@ namespace BluegrassPetCare.Models.PetViewModels
         public Sex Sex { get; set; }
         public int SexId { get; set; }
 
-
         public List<SelectListItem> NoteTypeOptions { get; set; }  // get notes to partial render on detail view
         public Note Note { get; set; }
         public int NoteId { get; set; }

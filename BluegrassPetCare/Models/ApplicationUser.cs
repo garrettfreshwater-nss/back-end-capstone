@@ -23,9 +23,11 @@ namespace BluegrassPetCare.Models
         [Required]
         [Display(Name = "Last Name")]
         public string LastName { get; set; }
-        
         public bool IsVetrinarian { get; set; }
-
+        public string VeterinarianEmail { get; set; }
+        public string VeterinarianName { get; set; }
+        public string VeterinarianPhone { get; set; }
+        
         public bool IsAdmin { get; set; }
 
         [AllowNull]
