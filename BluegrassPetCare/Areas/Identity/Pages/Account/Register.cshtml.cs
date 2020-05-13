@@ -17,6 +17,8 @@ using Microsoft.Extensions.Logging;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using Microsoft.AspNetCore.Http;
+using System.IO;
+using BluegrassPetCare.Data;
 
 namespace BluegrassPetCare.Areas.Identity.Pages.Account
 {
@@ -63,7 +65,7 @@ namespace BluegrassPetCare.Areas.Identity.Pages.Account
             public string Email { get; set; }
 
             [Display(Name = "Are you a Veterinarian?")]
-            public bool IsVetrinarian { get; set; }
+            public bool IsVeterinarian { get; set; }
 
 
             [Display(Name = "Veterinarian's Name")]
@@ -106,18 +108,30 @@ namespace BluegrassPetCare.Areas.Identity.Pages.Account
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
             {
+
+                
                 var user = new ApplicationUser
                 {
                     UserName = Input.Email,
                     Email = Input.Email,
                     FirstName = Input.FirstName,
                     LastName = Input.LastName,
-                    IsVetrinarian = Input.IsVetrinarian,
+                    IsVeterinarian = Input.IsVeterinarian,
                     VeterinarianName = Input.VeterinarianName,
                     VeterinarianPhone = Input.VeterinarianPhone,
-                    ImagePath = Input.ImagePath
-
+                    VeterinarianEmail = Input.VeterinarianEmail,
                 };
+
+                var uploadPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\images");
+                if (Input.ImageFile != null)
+                {
+                    var fileName = Guid.NewGuid().ToString() + Input.ImageFile.FileName;
+                    user.ImagePath = fileName;
+                    using (var fileStream = new FileStream(Path.Combine(uploadPath, fileName), FileMode.Create))
+                    {
+                        await Input.ImageFile.CopyToAsync(fileStream);
+                    }
+                }
 
 
                 var result = await _userManager.CreateAsync(user, Input.Password);

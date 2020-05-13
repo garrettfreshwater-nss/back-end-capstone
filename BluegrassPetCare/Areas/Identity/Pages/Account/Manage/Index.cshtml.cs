@@ -24,6 +24,7 @@ namespace BluegrassPetCare.Areas.Identity.Pages.Account.Manage
         }
 
         public string Username { get; set; }
+        public string ImagePath { get; set; }
 
         [TempData]
         public string StatusMessage { get; set; }
@@ -43,7 +44,9 @@ namespace BluegrassPetCare.Areas.Identity.Pages.Account.Manage
             var userName = await _userManager.GetUserNameAsync(user);
             var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
 
+
             Username = userName;
+            ImagePath = ImagePath;
 
             Input = new InputModel
             {

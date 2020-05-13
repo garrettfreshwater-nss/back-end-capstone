@@ -13,6 +13,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 
 namespace BluegrassPetCare.Controllers
 {
@@ -154,8 +155,10 @@ namespace BluegrassPetCare.Controllers
                 _context.Pet.Add(pet);
                 await _context.SaveChangesAsync();
 
-                TempData["petCreated"] = "Your Pet has been Created.";
-                TempData["petId"] = pet;
+             
+
+                ViewData["petCreated"] = ("Your Pet has been Created.");
+                ViewData["petId"] = pet;
                 
 
                 return RedirectToAction(nameof(Index));
