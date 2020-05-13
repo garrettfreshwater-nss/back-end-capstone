@@ -4,14 +4,16 @@ using BluegrassPetCare.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace BluegrassPetCare.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200513184805_UserPermissions")]
+    partial class UserPermissions
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -75,7 +77,7 @@ namespace BluegrassPetCare.Migrations
                     b.Property<bool>("IsAdmin")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("IsVeterinarian")
+                    b.Property<bool>("IsVetrinarian")
                         .HasColumnType("bit");
 
                     b.Property<string>("LastName")
@@ -141,17 +143,17 @@ namespace BluegrassPetCare.Migrations
                         {
                             Id = "00000000-ffff-ffff-ffff-ffffffffffff",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "c07bb910-5db8-4c13-88be-6e67128c478d",
+                            ConcurrencyStamp = "2bda2135-a3ad-4109-ac59-783dd97cee61",
                             Email = "admin@admin.com",
                             EmailConfirmed = true,
                             FirstName = "Admina",
                             IsAdmin = true,
-                            IsVeterinarian = false,
+                            IsVetrinarian = false,
                             LastName = "Straytor",
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@ADMIN.COM",
                             NormalizedUserName = "ADMIN@ADMIN.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEEV+x4u4WXLsvcULS+T4z8tRyWB/8N/8owEDBBAAdl/gcozTPNH+nHpZVPp5UPtUWQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEN+nKB5MqxWdTqEZEPdj6T63Yl0E9uP+xz/We/NkW7alJStllNLG8z6tTZeSkh6/1g==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "7f434309-a4d9-48e9-9ebb-8803db794577",
                             TwoFactorEnabled = false,

@@ -13,6 +13,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 
 namespace BluegrassPetCare.Controllers
 {
@@ -67,6 +68,7 @@ namespace BluegrassPetCare.Controllers
                 .Include(p => p.Breed)
                 .Include(p => p.Sex)
                 .Include(p => p.Species)
+                .Include(p => p.Notes)
                 .FirstOrDefaultAsync(p => p.PetId == id);
 
             var viewModel = new PetDetailViewModel()
@@ -83,6 +85,7 @@ namespace BluegrassPetCare.Controllers
             viewModel.Breed = pet.Breed;
             viewModel.Sex = pet.Sex;
             viewModel.Species = pet.Species;
+            viewModel.Pet.Notes = pet.Notes;
             viewModel.Pet.CurrentMedications = pet.CurrentMedications;
             viewModel.Pet.OngoingProblems = pet.OngoingProblems;
             viewModel.Pet.IsSpayedOrNeutered = pet.IsSpayedOrNeutered;
@@ -133,7 +136,7 @@ namespace BluegrassPetCare.Controllers
                     SexId = petDetailViewModel.Pet.SexId,
                     OngoingProblems = petDetailViewModel.Pet.OngoingProblems,
                     CurrentMedications = petDetailViewModel.Pet.CurrentMedications,
-                    IsSpayedOrNeutered = petDetailViewModel.Pet.IsSpayedOrNeutered
+                    IsSpayedOrNeutered = petDetailViewModel.Pet.IsSpayedOrNeutered,
                 };
 
 
@@ -149,8 +152,16 @@ namespace BluegrassPetCare.Controllers
                     }
                 }
 
+
+                pet.UserId = user.Id;
                 _context.Pet.Add(pet);
                 await _context.SaveChangesAsync();
+
+             
+
+                ViewData["petCreated"] = ("Your Pet has been Created.");
+                ViewData["petId"] = pet;
+                
 
                 return RedirectToAction(nameof(Index));
             }
@@ -167,6 +178,7 @@ namespace BluegrassPetCare.Controllers
                .Include(p => p.Breed)
                .Include(p => p.Sex)
                .Include(p => p.Species)
+               .Include(p => p.Notes)
                .FirstOrDefaultAsync(p => p.PetId == id);
 
             var viewModel = new PetDetailViewModel()
@@ -186,6 +198,7 @@ namespace BluegrassPetCare.Controllers
             viewModel.Pet.CurrentMedications = pet.CurrentMedications;
             viewModel.Pet.OngoingProblems = pet.OngoingProblems;
             viewModel.Pet.IsSpayedOrNeutered = pet.IsSpayedOrNeutered;
+           
 
             var breedTypes = await _context.Breed
                .Select(b => new SelectListItem() { Text = b.BreedName, Value = b.BreedId.ToString() })
@@ -196,6 +209,7 @@ namespace BluegrassPetCare.Controllers
             var sexTypes = await _context.Sex
                .Select(s => new SelectListItem() { Text = s.SexType, Value = s.SexId.ToString() })
                .ToListAsync();
+           
             viewModel.SpeciesTypeOptions = speciesTypes;
             viewModel.BreedTypeOptions = breedTypes;
             viewModel.SexTypeOptions = sexTypes;
@@ -226,22 +240,8 @@ namespace BluegrassPetCare.Controllers
                 editPet.SexId = petDetailViewModel.Pet.SexId;
 
 
-                //var petPet = new Pet()
-                //{
-                //    PetId = id,
-                //    Name = petDetailViewModel.Pet.Name,
-                //    Birthday = petDetailViewModel.Pet.Birthday,
-                //    Color = petDetailViewModel.Pet.Color,
-                //    OngoingProblems = petDetailViewModel.Pet.OngoingProblems,
-                //    CurrentMedications = petDetailViewModel.Pet.CurrentMedications,
-                //    IsSpayedOrNeutered = petDetailViewModel.Pet.IsSpayedOrNeutered,
-                //    SpeciesId = petDetailViewModel.Pet.SpeciesId,
-                //    BreedId = petDetailViewModel.Pet.BreedId,
-                //    SexId = petDetailViewModel.Pet.SexId,
-                //};
-
                 var uploadPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\images");
-                if (petDetailViewModel.ImagePath != null)
+                if (petDetailViewModel.ImageFile != null)
                 {
                     var fileName = Guid.NewGuid().ToString() + petDetailViewModel.ImageFile.FileName;
                     editPet.ImagePath = fileName;

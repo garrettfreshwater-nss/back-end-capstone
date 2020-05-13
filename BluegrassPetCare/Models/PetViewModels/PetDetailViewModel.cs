@@ -6,6 +6,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System;
 using Microsoft.AspNetCore.Http;
+using System.Collections;
 
 namespace BluegrassPetCare.Models.PetViewModels
 {
@@ -32,6 +33,9 @@ namespace BluegrassPetCare.Models.PetViewModels
         public Sex Sex { get; set; }
         public int SexId { get; set; }
 
+        public ICollection Notes { get; set; }  // get notes to partial render on detail view
+        public Note Note { get; set; }
+        public int NoteId { get; set; }
 
     }
 }

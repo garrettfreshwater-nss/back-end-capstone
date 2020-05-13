@@ -10,14 +10,12 @@
 <div>
     <h4>Pet</h4>
     <hr />
-    <dl class="row">
-        <div class="col-md-6">
-            <div class="col-md-10">
-                <img style="max-height: 500px; max-width: 500px" src="~/images/@Model.ImagePath" alt="descriptive image" />
-            </div>
+    <div class="col-md-6">
+        <div class="col-md-10">
+            <img style="max-height: 500px; max-width: 500px" src="~/images/@Model.ImagePath" alt="descriptive image" />
         </div>
-
-
+    </div>
+    <dl class="row">
 
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Name)
@@ -74,7 +72,7 @@
             @Html.DisplayFor(model => model.OngoingProblems)
         </dd>
     </dl>
-    
+
     <form asp-action="Delete">
         <input type="hidden" asp-for="PetId" />
         <input type="submit" value="Delete" class="btn btn-danger" /> |

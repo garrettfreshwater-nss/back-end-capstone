@@ -1,6 +1,7 @@
 ﻿<!DOCTYPE html>
 @using Microsoft.AspNetCore.Identity
 @inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -36,25 +37,29 @@
                         @if (SignInManager.IsSignedIn(User))
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Pets" asp-action="Index">Your Pets</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Pets" asp-action="Index">Pets</a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Pets" asp-action="Create">Add Your Pet</a>
-                            </li>
+                            
+                            @if (UserManager.GetUserAsync(User).Result.IsVeterinarian == true)
+                            {
 
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Species" asp-action="Index">Species</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Species" asp-action="Create">Add Species</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Notes" asp-action="Create">Add Pet Notes</a>
-                            </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Species" asp-action="Index">Species</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Species" asp-action="Create">Add Species</a>
+                                </li>
+                            }
+                            
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Notes" asp-action="Index">Pet Notes</a>
                             </li>
+                        
+
+                      
                         }
+                      
+
                     </ul>
                 </div>
             </div>

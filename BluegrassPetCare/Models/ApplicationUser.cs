@@ -13,7 +13,7 @@ namespace BluegrassPetCare.Models
         // You can Add profile data for application users by adding properties to the ApplicationUser class
         public ApplicationUser()
         {
-
+            IsVeterinarian = false;
         }
 
         [Required]
@@ -23,13 +23,16 @@ namespace BluegrassPetCare.Models
         [Required]
         [Display(Name = "Last Name")]
         public string LastName { get; set; }
+        public bool IsVeterinarian { get; set; }
+        public string VeterinarianEmail { get; set; }
+        public string VeterinarianName { get; set; }
+        public string VeterinarianPhone { get; set; }
         
-        public bool IsVetrinarian { get; set; }
-
         public bool IsAdmin { get; set; }
 
         [AllowNull]
         public string ImagePath { get; set; }
+
 
         public virtual ICollection<Pet> Pets { get; set; }
     }
