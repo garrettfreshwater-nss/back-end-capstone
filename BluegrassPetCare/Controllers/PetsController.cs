@@ -149,8 +149,14 @@ namespace BluegrassPetCare.Controllers
                     }
                 }
 
+
+                pet.UserId = user.Id;
                 _context.Pet.Add(pet);
                 await _context.SaveChangesAsync();
+
+                TempData["petCreated"] = "Your Pet has been Created.";
+                TempData["petId"] = pet;
+                
 
                 return RedirectToAction(nameof(Index));
             }
@@ -225,20 +231,6 @@ namespace BluegrassPetCare.Controllers
                 editPet.BreedId = petDetailViewModel.Pet.BreedId;
                 editPet.SexId = petDetailViewModel.Pet.SexId;
 
-
-                //var petPet = new Pet()
-                //{
-                //    PetId = id,
-                //    Name = petDetailViewModel.Pet.Name,
-                //    Birthday = petDetailViewModel.Pet.Birthday,
-                //    Color = petDetailViewModel.Pet.Color,
-                //    OngoingProblems = petDetailViewModel.Pet.OngoingProblems,
-                //    CurrentMedications = petDetailViewModel.Pet.CurrentMedications,
-                //    IsSpayedOrNeutered = petDetailViewModel.Pet.IsSpayedOrNeutered,
-                //    SpeciesId = petDetailViewModel.Pet.SpeciesId,
-                //    BreedId = petDetailViewModel.Pet.BreedId,
-                //    SexId = petDetailViewModel.Pet.SexId,
-                //};
 
                 var uploadPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\images");
                 if (petDetailViewModel.ImageFile != null)

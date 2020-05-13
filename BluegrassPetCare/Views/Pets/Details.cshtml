@@ -10,7 +10,7 @@
     <h4>Pet</h4>
     <hr />
     <dl class="row">
-       
+
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Pet.Name)
         </dt>
@@ -64,6 +64,12 @@
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Pet.OngoingProblems)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Pet.Notes)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Pet.Notes)
         </dd>
     </dl>
 </div>
