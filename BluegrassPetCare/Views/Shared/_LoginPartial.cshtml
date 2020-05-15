@@ -2,13 +2,13 @@
 @inject SignInManager<ApplicationUser> SignInManager
 @inject UserManager<ApplicationUser> UserManager
 
-    <ul class="navbar-nav navbar-expand-lg navbar-dark bg-dark">
+    <ul class="navbar-nav navbar-expand-lg navbar-dark bg-light">
         @if (SignInManager.IsSignedIn(User))
         {
 
             <li class="nav item active">
-                <a class="nav-link text-light" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">
-                    Hello  <img style="max-height: 25px; max-width: 25px" src="~/images/@UserManager.GetUserAsync(User).Result.ImagePath" alt="cool image" /> @UserManager.GetUserAsync(User).Result.FirstName @UserManager.GetUserAsync(User).Result.LastName!
+                <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">
+                    <img style="max-height: 35px; max-width: 35px; border-radius: 50%;" src="~/images/@UserManager.GetUserAsync(User).Result.ImagePath" alt="cool image" /> @UserManager.GetUserAsync(User).Result.FirstName @UserManager.GetUserAsync(User).Result.LastName!
                 </a>
             </li>
 

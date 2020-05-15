@@ -3,13 +3,13 @@
 @{
     ViewData["Title"] = "Index";
 }
+<h1>Notes</h1>
 
-<h1>Index</h1>
-
+<hr />
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create" class="btn btn-outline-info btn-lg">Add Species!</a>
 </p>
-<table class="table">
+<table class="table-hover table-responsive">
     <thead>
         <tr>
             <th>
@@ -21,7 +21,7 @@
     <tbody>
         @foreach (var item in Model)
         {
-            <tr>
+            <tr class="table-dark">
                 <td>
                     @Html.DisplayFor(modelItem => item.SpeciesType)
                 </td>

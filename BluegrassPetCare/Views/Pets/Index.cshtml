@@ -6,13 +6,15 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Bluegrass Pets</h1>
+<h1>Your Pets</h1>
+
+<hr />
 
 <p>
-    <a asp-action="Create" class="btn btn-primary btn-lg">Add a pet!</a>
+    <a asp-action="Create" class="btn btn-outline-info btn-lg">Add a pet!</a>
 </p>
 
-<table class="table">
+<table class="table-hover table-responsive">
     <thead>
         <tr>
             <th>
@@ -32,7 +34,6 @@
             <th>
                 @Html.DisplayNameFor(model => model.Color)
             </th>
-
         </tr>
     </thead>
     <tbody>
@@ -40,47 +41,50 @@
 
         @foreach (var item in Model)
         {
-            
-            
-        <tr>
-            @if (item.ImagePath == null)
-            {
-                <td>
-                    @Html.DisplayFor(modelItem => item.ImagePath)
-                </td>
-            }
-            else
-            {
-                <td>
-                    
-                    <a href="@Url.Action("Details", "Pet",  new { Id = item.PetId })">
-                        <img src="~/images/@item.ImagePath" , style="width: 5em; height: auto;">
-                    </a>
-                </td>
-            }
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Species.SpeciesType)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Breed.BreedName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Sex.SexType)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Color)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.PetId })
-                @Html.ActionLink("Details", "Details", new { id = item.PetId })
-                @Html.ActionLink("Delete", "Delete", new { id = item.PetId })
-            </td>
 
-        </tr>
-            
+
+            <tr class="table-dark" style="border:2px solid gray;">
+                @if (item.ImagePath == null)
+                {
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ImagePath)
+                    </td>
+                }
+                else
+                {
+                    <td>
+
+                        <a href="@Url.Action("Details", "Pet",  new { Id = item.PetId })">
+                            <img src="~/images/@item.ImagePath" , style="width: 6em; height: auto;">
+                        </a>
+                    </td>
+                }
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Species.SpeciesType)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Breed.BreedName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Sex.SexType)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Color)
+                </td>
+                <td>
+
+                    @Html.ActionLink("Edit", "Edit", new { id = item.PetId })
+                    @Html.ActionLink("Details", "Details", new { id = item.PetId })
+                    @Html.ActionLink("Delete", "Delete", new { id = item.PetId })
+               
+                    
+                </td>
+
+            </tr>
+
         }
     </tbody>
 </table>

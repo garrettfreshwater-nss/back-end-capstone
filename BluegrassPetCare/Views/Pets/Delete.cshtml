@@ -75,8 +75,8 @@
 
     <form asp-action="Delete">
         <input type="hidden" asp-for="PetId" />
-        <input type="submit" value="Delete" class="btn btn-outline-danger" />
-
+       
+        <input type="image" class="deleteButton" value="Delete" src="~/assets/trash.svg" />
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a asp-action="Index">Back to list</a></li>
             <li class="breadcrumb-item active">Pets</li>
