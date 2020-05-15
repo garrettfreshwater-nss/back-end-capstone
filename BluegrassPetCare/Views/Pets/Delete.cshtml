@@ -75,7 +75,13 @@
 
     <form asp-action="Delete">
         <input type="hidden" asp-for="PetId" />
-        <input type="submit" value="Delete" class="btn btn-danger" /> |
-        <a asp-action="Index">Back to List</a>
+        <input type="submit" value="Delete" class="btn btn-outline-danger" />
+
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a asp-action="Index">Back to list</a></li>
+            <li class="breadcrumb-item active">Pets</li>
+        </ol>
     </form>
+
+
 </div>
