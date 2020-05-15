@@ -32,14 +32,36 @@ namespace BluegrassPetCare.Controllers
 
 
         // GET: Pets
-        public async Task<ActionResult> Index(string searchString, string breedSearchString)
+        public async Task<ActionResult> Index(string searchString, string petSearchString)
         {
 
+            var user = await GetCurrentUserAsync();
 
 
-            if (searchString != null)
+            if (user.IsVeterinarian == false)
             {
-                var pet = await _context.Pet
+                var userPets = await _context.Pet
+                        .Include(p => p.Breed)
+                        .Include(p => p.Sex)
+                        .Include(p => p.Species)
+                        .Where(p => p.UserId == user.Id)
+                        .ToListAsync();
+                return View(userPets);
+            }
+            else if (user.IsVeterinarian == true)
+            {
+                var userPets = await _context.Pet
+                            .Include(p => p.Breed)
+                            .Include(p => p.Sex)
+                            .Include(p => p.Species)
+                            .ToListAsync();
+                return View(userPets);
+            }
+
+
+            else if (searchString != null)
+            {
+                var pet = await _context.Pet.Where(p => p.UserId == user.Id)
                     .Where(p => p.Name.Contains(searchString))
                     .Include(p => p.Breed)
                     .Include(p => p.Sex)
@@ -49,15 +71,19 @@ namespace BluegrassPetCare.Controllers
                 return View(pet);
             }
             else
-            {
-                var pet = await _context.Pet
+                {
+               
+
+                var pet = await _context.Pet.Where(p => p.UserId == user.Id)
                     .Include(p => p.Breed)
                     .Include(p => p.Sex)
                     .Include(p => p.Species)
-                    .ToListAsync();
-
+                .ToListAsync();
                 return View(pet);
+
+                
             }
+            
         }
             
 

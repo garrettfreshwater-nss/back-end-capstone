@@ -30,33 +30,64 @@ namespace BluegrassPetCare.Controllers
 
 
         // GET: Notes
-        public async Task<ActionResult> Index(string searchString, string TitleSearchString)
+
+
+        public async Task<ActionResult> Index(string searchString, string noteSearchString)
         {
 
+            var user = await GetCurrentUserAsync();
 
 
-            if (searchString != null)
+            if (user.IsVeterinarian == false)
             {
-                var note = await _context.Note
-                    .Where(n => n.Title.Contains(searchString))
-                    .Include(n => n.Pet)
+                var userNotes = await _context.Note
+                        .Include(n => n.Pet)
+                        .Where(n => n.UserId == user.Id)
+                        .ToListAsync();
+                return View(userNotes);
+            }
+            else if (user.IsVeterinarian == true)
+            {
+                var userNotes = await _context.Note
+                            .Include(n => n.Pet)
+                            .ToListAsync();
+                return View(userNotes);
+            }
+
+
+            else if (searchString != null)
+            {
+                var note = await _context.Note.Where(p => p.UserId == user.Id)
+                    .Where(p => p.Title.Contains(searchString))
+                    .Include(p => p.Pet)
                     .ToListAsync();
 
                 return View(note);
             }
             else
             {
-                var note = await _context.Note
-                    .Include(n => n.Pet)
-                    .ToListAsync();
 
-                return View(note);
+
+                var pet = await _context.Pet.Where(p => p.UserId == user.Id)
+                    .Include(p => p.Breed)
+                    .Include(p => p.Sex)
+                    .Include(p => p.Species)
+                .ToListAsync();
+                return View(pet);
+
+
             }
-        }
-            
 
-            // GET: Notes/Details/5
-            public async Task<ActionResult> Details(int id)
+        }
+
+
+
+
+
+
+
+        // GET: Notes/Details/5
+        public async Task<ActionResult> Details(int id)
         {
             var note = await _context.Note
                 .Include(n => n.Pet)
