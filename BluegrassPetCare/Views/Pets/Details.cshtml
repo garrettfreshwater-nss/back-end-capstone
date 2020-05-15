@@ -1,84 +1,133 @@
-﻿@model BluegrassPetCare.Models.PetViewModels.PetDetailViewModel
+﻿
+@model BluegrassPetCare.Models.PetViewModels.PetDetailViewModel
 
 @{
     ViewData["Title"] = "Details";
 }
 
-<h1>Details</h1>
+    <div style="display: flex;">
 
-<div>
-    <h4>Pet</h4>
-    <hr />
-    <dl class="row">
+        <div class="col-md-6">
+            <div class="col-md-10">
+                <img style="max-height: 500px; max-width: 500px" src="~/images/@Model.Pet.ImagePath" alt="cool image" />
+            </div>
+        </div>
+        <dl style="">
+            <h4>Pet</h4>
 
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Pet.Name)
+            <hr />
+            <dl class="row">
+
+
+
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Pet.Name)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.Pet.Name)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Pet.Color)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.Pet.Color)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Species)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.Species.SpeciesType)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Breed)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.Breed.BreedName)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Sex)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.Sex.SexType)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Pet.IsSpayedOrNeutered)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.Pet.IsSpayedOrNeutered)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Pet.Birthday)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.Pet.Birthday)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Pet.CurrentMedications)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.Pet.CurrentMedications)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Pet.OngoingProblems)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.Pet.OngoingProblems)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Pet.Notes)
+                </dt>
+            </dl>
+        </dl>
+
+        <dt class="NotesSideView">
+            <table class="table" style="flex-wrap:wrap;">
+                <h1>@Html.DisplayNameFor(model => model.Pet.Name) Notes</h1>
+                <thead>
+                    <tr>
+                        <th>
+                            Title
+                        </th>
+                        <th>
+                            Description
+                        </th>
+                        <th>
+                            Creator
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    @foreach (var item in Model.Pet.Notes)
+                    {
+
+
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Title)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Description)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.User)
+                            </td>
+                        </tr>
+
+
+                    }
+
+
+                </tbody>
+            </table>
         </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Pet.Name)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Pet.Color)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Pet.Color)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Species)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Species.SpeciesType)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Breed)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Breed.BreedName)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Sex)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Sex.SexType)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Pet.IsSpayedOrNeutered)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Pet.IsSpayedOrNeutered)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Pet.Birthday)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Pet.Birthday)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Pet.CurrentMedications)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Pet.CurrentMedications)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Pet.OngoingProblems)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Pet.OngoingProblems)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Pet.Notes)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Pet.Notes)
-        </dd>
-    </dl>
-</div>
-<div class="col-md-6">
-    <div class="col-md-10">
-        <img style="max-height: 500px; max-width: 500px" src="~/images/@Model.Pet.ImagePath" alt="cool image" />
+
+        <div>
+            <a asp-action="Edit" asp-route-id="@Model.Pet.PetId">Edit</a> |
+            @*<form asp-controller="Note" asp-route-id="@Model.Pet.PetId" asp-action="delete">
+                <input type="image" class="deleteButton" value="Delete" src="~/icons/svg/001-delete.svg" />
+            </form>*@
+            <a asp-action="Index">Back to List</a>|@*<a asp-action="Index", "Note" asp-route-id="@Model.Note">View Notes</a>*@
+        </div>
     </div>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model.Pet.PetId">Edit</a> |
-    <a asp-action="Index">Back to List</a>|@*<a asp-action="Index", "Note" asp-route-id="@Model.Note">View Notes</a>*@
-</div>

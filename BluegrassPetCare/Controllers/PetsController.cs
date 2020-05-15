@@ -44,6 +44,7 @@ namespace BluegrassPetCare.Controllers
                         .Include(p => p.Breed)
                         .Include(p => p.Sex)
                         .Include(p => p.Species)
+                        .Include(p => p.Notes)
                         .Where(p => p.UserId == user.Id)
                         .ToListAsync();
                 return View(userPets);
@@ -54,6 +55,7 @@ namespace BluegrassPetCare.Controllers
                             .Include(p => p.Breed)
                             .Include(p => p.Sex)
                             .Include(p => p.Species)
+                            .Include(p => p.Notes)
                             .ToListAsync();
                 return View(userPets);
             }
@@ -66,6 +68,7 @@ namespace BluegrassPetCare.Controllers
                     .Include(p => p.Breed)
                     .Include(p => p.Sex)
                     .Include(p => p.Species)
+                    .Include(p => p.Notes)
                     .ToListAsync();
 
                 return View(pet);
@@ -78,6 +81,7 @@ namespace BluegrassPetCare.Controllers
                     .Include(p => p.Breed)
                     .Include(p => p.Sex)
                     .Include(p => p.Species)
+                    .Include(p => p.Notes)
                 .ToListAsync();
                 return View(pet);
 
