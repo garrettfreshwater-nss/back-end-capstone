@@ -4,50 +4,50 @@
     ViewData["Title"] = "Create";
 }
 
-<h1>Create</h1>
-
-<h4>Note</h4>
-<hr />
-<div class="row" style="margin:auto;">
-    <div class="col-md-4">
-        <form asp-action="Create" enctype="multipart/form-data">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-
-            <div class="form-group">
-                <label asp-for="Note.Title" class="control-label"></label>
-                <input asp-for="Note.Title" class="form-control" />
-                <span asp-validation-for="Note.Title" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Note.Description" class="control-label"></label>
-                <textarea asp-for="Note.Description" class="form-control">Description</textarea>
-                <span asp-validation-for="Note.Description" class="text-danger"></span>
-            </div>
-
-
-            <div class="form-group">
-                <label asp-for="ImageFile">Upload File</label>
-                <input asp-for="ImageFile" type="file" class="form-control-file" id="exampleInputFile" aria-describedby="fileHelp">
-                <span asp-validation-for="ImageFile" class="text-danger"></span>
-                <small id="fileHelp" class="form-text text-muted">Upload Text, Image, PDF, and more files.</small>
-            </div>
-
-           
-            <div class="form-group">
-                <label asp-for="Note.Pet" class="control-label"></label>
-                <select asp-for="Note.PetId" class="form-control" asp-items="@Model.PetsTypeOptions">
-                    <option selected value="null"> Please select a Pet</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
+<div class="CreateNote">
+    <div class="Index-Title">
+        <h1>Add Note</h1>
     </div>
-</div>
+    <div class="row">
+        <div class="col-md-4 noteCreateForm">
+            <form asp-action="Create" enctype="multipart/form-data">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
+                <div class="form-group">
+                    <label asp-for="Note.Title" class="col-form-label col-form-label-lg" for="inputLarge"></label>
+                    <input asp-for="Note.Title" class="form-control" />
+                    <span asp-validation-for="Note.Title" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Note.Description" class="col-form-label col-form-label-lg" for="inputLarge"></label>
+                    <textarea asp-for="Note.Description" class="form-control">Description</textarea>
+                    <span asp-validation-for="Note.Description" class="text-danger"></span>
+                </div>
+
+
+                <div class="form-group">
+                    <label asp-for="ImageFile">Upload File</label>
+                    <input asp-for="ImageFile" type="file" class="form-control-file" id="exampleInputFile" aria-describedby="fileHelp">
+                    <span asp-validation-for="ImageFile" class="text-danger"></span>
+                    <small id="fileHelp" class="form-text text-muted">Upload Text, Image, PDF, and more files.</small>
+                </div>
+
+
+                <div class="form-group">
+                    <label asp-for="Note.Pet" class="col-form-label col-form-label-lg" for="inputLarge"></label>
+                    <select asp-for="Note.PetId" class="form-control" asp-items="@Model.PetsTypeOptions">
+                        <option selected value="null"> Please select a Pet</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Create" class="btn btn-outline-primary" />
+                </div>
+            </form>
+            <div>
+                <a asp-action="Index">Back to List</a>
+            </div>
+        </div>
+    </div>
 </div>
 
 @section Scripts {

@@ -21,9 +21,9 @@
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-lg  navbar-dark bg-light">
+        <nav class="navbar navbar-expand-lg  navbar-dark bg-dark">
             <div class="container">
-                <a class="navbar-brand text-dark" asp-area="" asp-controller="Home" asp-action="Index">Bluegrass PetCare</a>
+                <a class="navbar-brand text-light" asp-area="" asp-controller="Home" asp-action="Index">Bluegrass PetCare</a>
               
 
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor03" aria-controls="navbarColor03" aria-expanded="false" aria-label="Toggle navigation">
@@ -35,24 +35,24 @@
                     <partial name="_LoginPartial" />
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item active">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
                         @if (SignInManager.IsSignedIn(User))
                         {
                             <li class="nav-item active">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Pets" asp-action="Index">Pets</a>
+                                <a class="nav-link text-light" asp-area="" asp-controller="Pets" asp-action="Index">Pets</a>
                             </li>
 
                             @if (UserManager.GetUserAsync(User).Result.IsVeterinarian == true)
                             {
 
                                 <li class="nav-item active">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="Species" asp-action="Index">Species</a>
+                                    <a class="nav-link text-light" asp-area="" asp-controller="Species" asp-action="Index">Species</a>
                                 </li>
                             }
 
                             <li class="nav-item active">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Notes" asp-action="Index">Pet Notes</a>
+                                <a class="nav-link text-light" asp-area="" asp-controller="Notes" asp-action="Index">Pet Notes</a>
                             </li>
 
 

@@ -4,43 +4,45 @@
     ViewData["Title"] = "Register";
 }
 
-<h1>@ViewData["Title"]</h1>
 
-<div class="row">
-    <div class="col-md-4">
+
+<div class="RegisterForm">
+    <div class="Index-Title">
+        <h1>@ViewData["Title"]</h1>
+    </div>
+      <div class="row">
+    <div class="col-md-4 registerCreateForm">
         <form asp-route-returnUrl="@Model.ReturnUrl" method="post" enctype="multipart/form-data">
-            <h4>Create a new account.</h4>
-            <hr />
             <div asp-validation-summary="All" class="text-danger"></div>
 
             <div class="form-group">
-                <label asp-for="Input.ImageFile">Add Image?</label><br>
+                <label asp-for="Input.ImageFile" class="col-form-label col-form-label-lg" for="inputLarge">Add Image?</label><br>
                 <input id="image-upload-button" asp-for="Input.ImageFile" type="button" class="form-control" value="Add Image">
             </div>
 
             <div class="form-group hidden" id="image-input">
-                <label asp-for="Input.ImageFile" class="control-label"></label>
-                <input asp-for="Input.ImageFile" type="file" class="form-control" />
+                <label asp-for="Input.ImageFile" class="control-label">File input</label>
+                <input asp-for="Input.ImageFile" type="file" class="form-control-file" id="exampleInputFile" aria-describedby="fileHelp">
                 <span asp-validation-for="Input.ImageFile" class="text-danger"></span>
+                <small id="fileHelp" class="form-text text-muted">Please select an image.</small>
             </div>
 
+
             <div class="form-group">
-                <label asp-for="Input.FirstName"></label>
+                <label asp-for="Input.FirstName" class="col-form-label col-form-label-lg" for="inputLarge"></label>
                 <input asp-for="Input.FirstName" class="form-control" />
                 <span asp-validation-for="Input.FirstName" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Input.LastName"></label>
+                <label asp-for="Input.LastName" class="col-form-label col-form-label-lg" for="inputLarge"></label>
                 <input asp-for="Input.LastName" class="form-control" />
                 <span asp-validation-for="Input.LastName" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Input.Email"></label>
+                <label asp-for="Input.Email" class="col-form-label col-form-label-lg" for="inputLarge"></label>
                 <input asp-for="Input.Email" class="form-control" />
                 <span asp-validation-for="Input.Email" class="text-danger"></span>
             </div>
-
-
 
             <div class="custom-control custom-checkbox">
                 <input type="checkbox" class="custom-control-input" asp-for="Input.IsVeterinarian" id="IsVeterinarian">
@@ -51,12 +53,6 @@
                     <label asp-for="Input.VeterinarianName"></label>
                     <input asp-for="Input.VeterinarianName" class="form-control" />
                     <span asp-validation-for="Input.VeterinarianName" class="text-danger"></span>
-
-                    <div class="form-group">
-                        <label asp-for="Input.VeterinarianEmail"></label>
-                        <input asp-for="Input.VeterinarianEmail" class="form-control" />
-                        <span asp-validation-for="Input.VeterinarianEmail" class="text-danger"></span>
-                    </div>
                     <div class="form-group">
                         <label asp-for="Input.VeterinarianPhone"></label>
                         <input asp-for="Input.VeterinarianPhone" class="form-control" />
@@ -65,52 +61,21 @@
                 </div>
             </div>
 
-
-
-            <div class="form-group">
-                <label asp-for="Input.Password"></label>
+            <div class="form-group" style="padding-top: 20px;">
+                <label asp-for="Input.Password" class="col-form-label col-form-label-lg" for="inputLarge"></label>
                 <input asp-for="Input.Password" class="form-control" />
                 <span asp-validation-for="Input.Password" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Input.ConfirmPassword"></label>
+                <label asp-for="Input.ConfirmPassword" class="col-form-label col-form-label-lg" for="inputLarge"></label>
                 <input asp-for="Input.ConfirmPassword" class="form-control" />
                 <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
             </div>
             <button type="submit" class="btn btn-primary">Register</button>
         </form>
-    </div>
-    <div class="col-md-6 col-md-offset-2">
-        <section>
-            <h4>Use another service to register.</h4>
-            <hr />
-            @{
-                if ((Model.ExternalLogins?.Count ?? 0) == 0)
-                {
-                    <div>
-                        <p>
-                            There are no external authentication services configured. See <a href="https://go.microsoft.com/fwlink/?LinkID=532715">this article</a>
-                            for details on setting up this ASP.NET application to support logging in via external services.
-                        </p>
-                    </div>
-                }
-                else
-                {
-                    <form id="external-account" asp-page="./ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl" method="post" class="form-horizontal">
-                        <div>
-                            <p>
-                                @foreach (var provider in Model.ExternalLogins)
-                                {
-                                    <button type="submit" class="btn btn-primary" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account">@provider.DisplayName</button>
-                                }
-                            </p>
-                        </div>
-                    </form>
-                }
-            }
-        </section>
-    </div>
+    </div> 
 </div>
+    </div>
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />

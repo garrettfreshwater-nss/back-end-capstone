@@ -197,7 +197,7 @@ namespace BluegrassPetCare.Controllers
             }
             catch
             {
-                return View();
+                return View(nameof(Index));
             }
         }
 

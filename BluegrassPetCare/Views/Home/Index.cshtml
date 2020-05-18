@@ -1,24 +1,47 @@
-﻿@{
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+
+@{
     ViewData["Title"] = "Home Page";
 }
-
-
-    <div class="homeButtons" style="display:flex; flex-direction:row; margin: 40px auto;">
-
-        <div class="jumbotron" style="text-align:center;">
-     
-                <img src="~/assets/bglogo.png" height="220" width="195">
-            
-            <h1 class="display-3">Bluegrass PetCare</h1>
-
-            <p class="lead">
-                This is a simple web application to make the communication between Employees and Pet owners who work and attend Bluegrass Animal
-                Hospital, less complicated.
-            </p>
+    <div class="HomePage">
+        @if (SignInManager.IsSignedIn(User))
+        {
+            {
+        <div class="jumbotron HomeBgFull" id="homeJumbo">
+            <div class="jumboImage">
+                <span class="jumboLogo">
+                        <img src="~/assets/dog.png" />
+                </span>
+                <img src="~/assets/doggy.png" />
+            </div>
+            <p class="lead text-light">Explore Bluegrass PetCare</p>
             <hr class="my-4">
-            <p>Store your pets, and store notes about them. Veterinarians, make notes about pets you take care of.</p>
             <p class="lead">
-                <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
+                <a class="btn btn-lg" role="button" asp-area="" asp-controller="Pets" asp-action="Index">Pets</a>
+                <a class="btn btn-lg" role="button" asp-area="" asp-controller="Notes" asp-action="Index">Notes</a>
             </p>
         </div>
+
+            }
+        }
+        else
+        {
+            <div class="jumbotron HomeBgFull" id="homeJumbo">
+                <div class="jumboImage">
+                    <span class="jumboLogo">
+                        <img src="~/assets/bglogo.png" />
+                    </span>
+                </div>
+                <p class="lead">Please Log-In or Register</p>
+                <hr class="my-4">
+                <p class="lead">
+                    <a class="btn btn-lg" role="button" asp-area="Identity" asp-page="/Account/Login">Log-In</a>
+                    <a class="btn btn-lg" role="button" asp-area="Identity" asp-page="/Account/Register">Register</a>
+                </p>
+            </div>
+
+        }
     </div>
