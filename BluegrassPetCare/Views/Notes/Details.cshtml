@@ -4,52 +4,71 @@
     ViewData["Title"] = "Details";
 }
 
-<h1>Details</h1>
+<div class="PetIndex">
+    <div class="Index-Title">
+        <h1>Notes</h1>
+    </div>
 
-<div>
-    <h4>Note</h4>
-    <hr />
 
-    <div class="col-md-6">
-        <div class="col-md-10">
-            <embed style="max-height: 500px; max-width: 500px" src="~/pdfs/@Model.Note.UploadPath" alt="cool image" />
+
+
+<div class="PetCards">
+    
+    <div class="petCard card" style="min-width: 20rem;">
+        <div class="card-header">
+            <div>
+                <h2>@Html.DisplayFor(model => model.Note.Title)</h2>
+            </div>
+        </div>
+
+
+        <div class="PetInfoText">
+            <dl class="row">
+                <dd class="col-sm-12">
+
+                    <div class="petInfoLines">
+
+                        @if (@Model.Note.UploadPath == null)
+                        {
+                            <div>
+                                <embed style="max-height: 500px; max-width: 500px" src="~/pdfs/@Model.Note.UploadPath" alt="cool image" />
+                            </div>
+                        }
+                        else
+                        {
+                            <div>
+
+                                <a href="@Url.Action("Details", "Pet",  new { Id = @Model.Note.NoteId })">
+                                    <embed src="~/pdfs/@Model.Note.UploadPath" , style="width: 17em; height: auto;">
+                                </a>
+                            </div>
+                        }
+                    </div>
+
+                    <div class="petInfoLines">
+                        <p>Title:</p> @Html.DisplayFor(model => model.Note.Title)
+                    </div>
+                    <div class="petInfoLines">
+                        <p>Description:</p> @Html.DisplayFor(model => model.Note.Description)
+                    </div>
+                    <div class="petInfoLines">
+                        <p>Date Added:</p> @Html.DisplayFor(model => model.Note.DateAdded)
+                    </div>
+
+
+                </dd>
+                <dd class="col-sm-12">
+                    <div class="petDetailsBtn">
+                        <a class="btn btn-primary btn-block" asp-action="Edit" asp-route-id="@Model.Note.NoteId">Edit</a>
+                    </div>
+                    <div class="petDetailsBtn">
+                        <a class="btn btn-primary btn-block" asp-action="Delete" asp-route-id="@Model.Note.NoteId">Delete</a>
+                    </div>
+                </dd>
         </div>
     </div>
 
-    <dl class="row">
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Note.User)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Note.User)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Note.DateAdded)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Note.DateAdded)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Note.Title)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Note.Title)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Note.Description)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Note.Description)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Note.Pet)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Note.Pet.Name)
-        </dd>
-    </dl>
 </div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model.Note.NoteId">Edit</a> |
-    <a asp-action="Index">Back to List</a>
 </div>
+
+

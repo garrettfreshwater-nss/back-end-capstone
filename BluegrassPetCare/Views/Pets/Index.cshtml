@@ -47,7 +47,7 @@
                                     <div>
 
                                         <a href="@Url.Action("Details", "Pet",  new { Id = pet.PetId })">
-                                            <img src="~/images/@pet.ImagePath" , style="width: 6em; height: auto;">
+                                            <img src="~/images/@pet.ImagePath" , style="width: 7em; height: auto;">
                                         </a>
                                     </div>
                                 }
@@ -76,6 +76,11 @@
                             <div class="petDetailsBtn">
                                 <a class="btn btn-primary btn-block" asp-action="Details" asp-route-id="@pet.PetId">Details</a>
                             </div>
+
+                            <div class="petDetailsBtn">
+                                <a class="btn btn-primary btn-block" asp-action="Edit" asp-route-id="@pet.PetId">Edit</a>
+                            </div>
+
                             <div class="petDetailsBtn">
                                 <a class="btn btn-primary btn-block" asp-action="Delete" asp-route-id="@pet.PetId">Delete</a>
                             </div>

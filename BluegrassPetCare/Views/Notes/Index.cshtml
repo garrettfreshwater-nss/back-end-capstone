@@ -4,73 +4,81 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Notes</h1>
+<div class="PetIndex">
+    <div class="Index-Title">
+        <h1>Notes</h1>
+    </div>
+    <div class="createPetBtn">
+        <p class="lead">
+            <a class="btn btn-primary btn-lg" asp-action="Create">Add Note</a>
+        </p>
+    </div>
 
-<hr />
-<p>
-    <a asp-action="Create" class="btn btn-outline-info btn-lg">Add a Note</a>
-</p>
 
-<table class="table table-hover table-responsive">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Pet.Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DateAdded)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Title)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Description)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr class="table-dark">
-            <td>
-                @Html.DisplayFor(modelItem => item.Pet.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DateAdded)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Title)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            @if (item.UploadPath == null)
-            {
-                <td>
-                    @Html.DisplayFor(modelItem => item.UploadPath)
-                </td>
-            }
-            else
-            {
-                <td>
 
-                    <a href="@Url.Action("Details", "Note",  new { Id = item.NoteId })">
-                        <embed src="~/pdfs/@item.UploadPath" , style="width: 10em; height: auto;">
 
-                    </a>
-                </td>
-            }
-            
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.NoteId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.NoteId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.NoteId">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+    <div class="PetCards">
+        @foreach (var note in Model)
+        {
+            <div class="petCard card" style="min-width: 20rem;">
+                <div class="card-header">
+                    <div>
+                        <h2>@Html.DisplayFor(modelItem => note.Pet.Name)</h2>
+                    </div>
+                </div>
 
-   
-     
-</table>
+
+                <div class="PetInfoText">
+                    <dl class="row">
+                        <dd class="col-sm-12">
+
+                            <div class="petInfoLines">
+
+                                @if (note.UploadPath == null)
+                                {
+                                    <div>
+                                        @Html.DisplayFor(modelItem => note.UploadPath)
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div>
+
+                                        <a href="@Url.Action("Details", "Pet",  new { Id = note.NoteId })">
+                                            <embed src="~/pdfs/@note.UploadPath" , style="width: 17em; height: auto;">
+                                        </a>
+                                    </div>
+                                }
+                            </div>
+
+                            <div class="petInfoLines">
+                                <p>Pet:</p> @Html.DisplayFor(modelItem => note.Pet.Name)
+                            </div>
+                            <div class="petInfoLines">
+                                <p>Title:</p> @Html.DisplayFor(modelItem => note.Title)
+                            </div>
+                            <div class="petInfoLines">
+                                <p>Description:</p> @Html.DisplayFor(modelItem => note.Description)
+                            </div>
+                            <div class="petInfoLines">
+                                <p>Date Added:</p> @Html.DisplayFor(modelItem => note.DateAdded)
+                            </div>
+                        </dd>
+                        <dd class="col-sm-12">
+                            <div class="petDetailsBtn">
+                                <a class="btn btn-primary btn-block" asp-action="Details" asp-route-id="@note.NoteId">Details</a>
+                            </div>
+                            <div class="petDetailsBtn">
+                                <a class="btn btn-primary btn-block" asp-action="Edit" asp-route-id="@note.NoteId">Edit</a>
+                            </div>
+                            <div class="petDetailsBtn">
+                                <a class="btn btn-primary btn-block" asp-action="Delete" asp-route-id="@note.NoteId">Delete</a>
+                            </div>
+                        </dd>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+

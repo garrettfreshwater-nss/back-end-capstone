@@ -87,11 +87,6 @@ namespace BluegrassPetCare.Data
                },
                new Species()
                {
-                   SpeciesId = 4,
-                   SpeciesType = "Human"
-               },
-               new Species()
-               {
                    SpeciesId = 5,
                    SpeciesType = "Bald Eagle"
                }
@@ -116,6 +111,61 @@ namespace BluegrassPetCare.Data
                {
                    BreedId = 4,
                    BreedName = "Shitzu"
+               },
+               new Breed()
+               {
+                   BreedId = 5,
+                   BreedName = "Labrador Retriever"
+               },
+               new Breed()
+               {
+                   BreedId = 6,
+                   BreedName = "Mut"
+               },
+               new Breed()
+               {
+                   BreedId = 7,
+                   BreedName = "Terrier"
+               },
+               new Breed()
+               {
+                   BreedId = 8,
+                   BreedName = "Sphinx"
+               },
+               new Breed()
+               {
+                   BreedId = 9,
+                   BreedName = "Bengal"
+               },
+               new Breed()
+               {
+                   BreedId = 10,
+                   BreedName = "Ragdoll"
+               },
+               new Breed()
+               {
+                   BreedId = 11,
+                   BreedName = "Burmese"
+               },
+               new Breed()
+               {
+                   BreedId = 12,
+                   BreedName = "Bombay"
+               },
+               new Breed()
+               {
+                   BreedId = 4,
+                   BreedName = "Pug"
+               },
+               new Breed()
+               {
+                   BreedId = 4,
+                   BreedName = "Golden Retriever"
+               },
+               new Breed()
+               {
+                   BreedId = 4,
+                   BreedName = "Beagle"
                }
             );
 
