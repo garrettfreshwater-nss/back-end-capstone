@@ -229,15 +229,65 @@ input[type="checkbox"]:checked ~ .reveal-if-active {
 }
 
 
-/*PET DETAILS*/
+/*PET INDEX*/
+
+
+
+.PetCards {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.petCard {
+
+    flex-basis: 15%;
+    margin: 1rem;
+    flex-direction: column;
+}
+
+
+
 .petInfo {
     border-radius: .3rem;
     margin: 1rem;
     flex-basis: 28%
 }
-.petCard {
+
+
+.petInfoLines {
+    display: flex;
+    flex-direction: row;
+}
+
+    .petInfoLines p {
+        margin-right: .5rem;
+    }
+
+.PetInfoText p {
+    font-weight: bold;
+    margin-bottom: .5rem;
+}
+
+.PetInfoText {
+    margin-top: .3rem;
+    padding: .5rem;
+
+   
+}
+
+
+
+
+/*PET DETAILS*/
+
+.PetDetails {
+    background-color: #F6F6F6;
+    padding: 1rem;
+    border-radius: .3rem;
+    border: 1px solid #162c5780;
     margin-top: 2rem;
-    align-content: center;
+    display: flex;
 }
 
 .petRow {
@@ -248,6 +298,39 @@ input[type="checkbox"]:checked ~ .reveal-if-active {
 .card-img-top {
     opacity: .15;
 }
+
+
+.petRosterHeader {
+    background-color: #e9e9e9;
+    padding: .5rem;
+    margin: 0px;
+    border-radius: .3rem .3rem 0 0;
+    display: flex
+}
+
+    .petRosterHeader a {
+        margin-left: auto;
+        margin-top: auto;
+        margin-bottom: auto
+    }
+
+.petInfoCard {
+    background-color: #FFFFFF;
+    border-radius: .3rem;
+    border: 1px solid #162c5780;
+    margin: 1rem;
+    flex-basis: 35%
+}
+
+.petInfoHeader {
+    background-color: #e9e9e9;
+    padding: .5rem;
+    margin: 0px;
+    border-radius: .3rem .3rem 0 0;
+}
+
+
+
 
 
 

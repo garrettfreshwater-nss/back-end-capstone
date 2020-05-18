@@ -195,7 +195,7 @@ namespace BluegrassPetCare.Controllers
 
                 return RedirectToAction(nameof(Index));
             }
-            catch
+            catch (Exception ex)
             {
                 return View(nameof(Index));
             }

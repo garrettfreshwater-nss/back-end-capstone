@@ -3,36 +3,46 @@
 @{
     ViewData["Title"] = "Index";
 }
-<h1>Species</h1>
 
-<hr />
-<p>
-    <a asp-action="Create" class="btn btn-outline-info btn-lg">Add Species!</a>
-</p>
-<table class="table-hover table-responsive">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.SpeciesType)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
+
+
+<div class="PetIndex">
+    <div class="Index-Title">
+        <h1>Species</h1>
+    </div>
+    <div class="createPetBtn">
+        <p class="lead">
+            <a class="btn btn-primary btn-lg" asp-action="Create">Add Species</a>
+        </p>
+    </div>
+
+
+
+
+    <div class="PetCards">
+        @foreach (var species in Model)
         {
-            <tr class="table-dark">
-                <td>
-                    @Html.DisplayFor(modelItem => item.SpeciesType)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.SpeciesId)
-                </td>
-                <td>
-                 
-                    @Html.ActionLink("Delete", "Delete", new { id = item.SpeciesId })
-                </td>
-            </tr>
+            <div class="petCard card" style="min-width: 20rem;">
+                <div class="card-header">
+                    <div>
+                        <h2>@Html.DisplayFor(modelItem => species.SpeciesType)</h2>
+                    </div>
+                </div>
+
+
+                <div class="PetInfoText">
+                    <dl class="row">
+                          
+                        <dd class="col-sm-12">
+                            <div class="petDetailsBtn">
+                                <a class="btn btn-primary btn-block" asp-action="Delete" asp-route-id="@species.SpeciesId">Delete</a>
+                            </div>
+                        </dd>
+                        </dl>
+                </div>
+            </div>
         }
-    </tbody>
-</table>
+    </div>
+</div>
+
+

@@ -6,85 +6,84 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Your Pets</h1>
-
-<hr />
-
-<p>
-    <a asp-action="Create" class="btn btn-outline-info btn-lg">Add a pet!</a>
-</p>
-
-<table class="table-hover table-responsive">
-    <thead>
-        <tr>
-            <th>
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Species)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Breed)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Sex)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Color)
-            </th>
-        </tr>
-    </thead>
-    <tbody>
+<div class="PetIndex">
+    <div class="Index-Title">
+        <h1>Pets</h1>
+    </div>
+    <div class="createPetBtn">
+        <p class="lead">
+            <a class="btn btn-primary btn-lg" asp-action="Create">Add Pet</a>
+        </p>
+    </div>
 
 
-        @foreach (var item in Model)
+
+
+    <div class="PetCards">
+        @foreach (var pet in Model)
         {
+            <div class="petCard card" style="min-width: 20rem;">
+                <div class="card-header">
+                    <div>
+                        <h2>@Html.DisplayFor(modelItem => pet.Name)</h2>
+                    </div>
+                </div>
 
 
-            <tr class="table-dark" style="border:1.5px solid gray;">
-                @if (item.ImagePath == null)
-                {
-                    <td>
-                        @Html.DisplayFor(modelItem => item.ImagePath)
-                    </td>
+                <div class="PetInfoText">
+                    <dl class="row">
+                        <dd class="col-sm-12">
+
+                            <div class="petInfoLines">
+
+                                @if (pet.ImagePath == null)
+                                {
+                                    <div>
+                                        @Html.DisplayFor(modelItem => pet.ImagePath)
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div>
+
+                                        <a href="@Url.Action("Details", "Pet",  new { Id = pet.PetId })">
+                                            <img src="~/images/@pet.ImagePath" , style="width: 6em; height: auto;">
+                                        </a>
+                                    </div>
+                                }
+                            </div>
+
+                            <div class="petInfoLines">
+                                <p>Pet Owner:</p> @Html.DisplayFor(modelItem => pet.User.FirstName)  @Html.DisplayFor(modelItem => pet.User.LastName)
+                            </div>
+                            <div class="petInfoLines">
+                                <p>Species:</p> @Html.DisplayFor(modelItem => pet.Species.SpeciesType)
+                            </div>
+                            <div class="petInfoLines">
+                                <p>Breed:</p> @Html.DisplayFor(modelItem => pet.Breed.BreedName)
+                            </div>
+                            <div class="petInfoLines">
+                                <p>Sex:</p> @Html.DisplayFor(modelItem => pet.Sex.SexType)
+                            </div>
+                            <div class="petInfoLines">
+                                <p>Color:</p> @Html.DisplayFor(modelItem => pet.Color)
+                            </div>
+                            <div class="petInfoLines">
+                                <p>Birthday:</p> @Html.DisplayFor(modelItem => pet.Birthday)
+                            </div>
+                        </dd>
+                        <dd class="col-sm-12">
+                            <div class="petDetailsBtn">
+                                <a class="btn btn-primary btn-block" asp-action="Details" asp-route-id="@pet.PetId">Details</a>
+                            </div>
+                            <div class="petDetailsBtn">
+                                <a class="btn btn-primary btn-block" asp-action="Delete" asp-route-id="@pet.PetId">Delete</a>
+                            </div>
+                        </dd>
+                    </div>
+                </div>
                 }
-                else
-                {
-                    <td>
+    </div>
+</div>
 
-                        <a href="@Url.Action("Details", "Pet",  new { Id = item.PetId })">
-                            <img src="~/images/@item.ImagePath" , style="width: 6em; height: auto;">
-                        </a>
-                    </td>
-                }
-                <td>
-                    @Html.DisplayFor(modelItem => item.Name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Species.SpeciesType)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Breed.BreedName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Sex.SexType)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Color)
-                </td>
-                <td>
 
-                    @Html.ActionLink("Edit", "Edit", new { id = item.PetId })
-                    @Html.ActionLink("Details", "Details", new { id = item.PetId })
-                    @Html.ActionLink("Delete", "Delete", new { id = item.PetId })
-               
-                    
-                </td>
-
-            </tr>
-
-        }
-    </tbody>
-</table>
