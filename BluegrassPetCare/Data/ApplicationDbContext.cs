@@ -154,17 +154,17 @@ namespace BluegrassPetCare.Data
                },
                new Breed()
                {
-                   BreedId = 4,
+                   BreedId = 13,
                    BreedName = "Pug"
                },
                new Breed()
                {
-                   BreedId = 4,
+                   BreedId = 14,
                    BreedName = "Golden Retriever"
                },
                new Breed()
                {
-                   BreedId = 4,
+                   BreedId = 15,
                    BreedName = "Beagle"
                }
             );

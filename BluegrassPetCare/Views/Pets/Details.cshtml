@@ -88,6 +88,9 @@
             <div class="roster">
                 <table class="table table-striped">
                     <tbody>
+                      
+
+
                         @foreach (var note in Model.Pet.Notes)
                         {
                         <tr>
@@ -95,10 +98,10 @@
                                 <embed src="~/pdfs/@Html.DisplayFor(item => note.UploadPath)" />
                             </td>
                             <td>
-                                @Html.DisplayFor(item => note.Title)
+                                <p>Title:</p> @Html.DisplayFor(item => note.Title)
                             </td>
                             <td>
-                                @Html.DisplayFor(item => note.Description)
+                                <p>Description:</p> @Html.DisplayFor(item => note.Description)
                             </td>
                             <td>
                                 @Html.DisplayFor(item => note.DateAdded)
