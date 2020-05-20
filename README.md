@@ -6,7 +6,10 @@ Pet Owners have the ability to add pets and add notes for their pets for their o
 
 Vetrinarians have the ability to add pets and add notes for Owners pets for their own reference or Vetrinarian reference.  Pets and Notes can be edited and deleted. Vetrinarians have special permissions when it comes to edit/delete of notes/pets.
 
- <img src="./public/" height="450px" width="250px">     <img src="./public/" height="450" width="250">      <img src="./public/" height="450" width="250">
+ <img src="BluegrassPetCare\wwwroot\assets\bpclogin.pngg" height="450" width="450">     
+ <img src="./assets/bpclogin.png" height="450" width="450">  
+ 
+
 
 
 
@@ -22,4 +25,4 @@ npm start
 
 ## Usage
 
-1. Click on "Register" button 
+1. 
