@@ -23,7 +23,6 @@ namespace BluegrassPetCare.Models
 
      
         [StringLength(55, ErrorMessage = "The Title must be less than 55 characters.")]
-        [RegularExpression(@"^[0-9a-zA-Z''-'\s]{1,56}$", ErrorMessage = "Special characters are not allowed.")]
         public string Title { get; set; }
 
     

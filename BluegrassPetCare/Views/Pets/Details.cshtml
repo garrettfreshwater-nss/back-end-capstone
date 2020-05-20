@@ -4,11 +4,14 @@
 @{
     ViewData["Title"] = "Details";
 }
+
+    <div class="Index-Title">
+        <h1>Pet Details</h1>
+    </div>
+
     <div class="PetDetails">
         <div class="eventInfoCard">
-            <div class="eventInfoHeader">
-                <h1>Pet Details</h1>
-            </div>
+           
             <div class="petInfo">
                 <div class="PetInfoText">
                     <dl class="row">
@@ -93,20 +96,24 @@
 
                         @foreach (var note in Model.Pet.Notes)
                         {
-                        <tr>
-                            <td class="tableRoleIcons">
-                                <embed src="~/pdfs/@Html.DisplayFor(item => note.UploadPath)" />
-                            </td>
-                            <td>
-                                <p>Title:</p> @Html.DisplayFor(item => note.Title)
-                            </td>
-                            <td>
-                                <p>Description:</p> @Html.DisplayFor(item => note.Description)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(item => note.DateAdded)
-                            </td>
-                        </tr>
+                            <tr>
+                                <td class="tableRoleIcons">
+                                    <p>User:</p> @Html.DisplayFor(item => note.User.FirstName)
+
+                                    <a href="@Url.Action("Details", "Notes",  new { Id = note.NoteId })">
+                                        <embed src="~/pdfs/@Html.DisplayFor(item => note.UploadPath)" />
+                                    </a>
+                                </td>
+                                <td>
+                                    <p>Title:</p> @Html.DisplayFor(item => note.Title)
+                                </td>
+                                <td>
+                                    <p>Description:</p> @Html.DisplayFor(item => note.Description)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(item => note.DateAdded)
+                                </td>
+                            </tr>
                         }
                     </tbody>
                 </table>

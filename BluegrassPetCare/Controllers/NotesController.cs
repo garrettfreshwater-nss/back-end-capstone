@@ -91,6 +91,7 @@ namespace BluegrassPetCare.Controllers
         {
             var note = await _context.Note
                 .Include(n => n.Pet)
+                .Include(n => n.User)
                 .FirstOrDefaultAsync(n => n.NoteId == id);
 
             var viewModel = new NoteDetailViewModel()
@@ -100,11 +101,13 @@ namespace BluegrassPetCare.Controllers
 
             viewModel.Note.NoteId = note.NoteId;
             viewModel.Note.UserId = note.UserId;
+            viewModel.Note.User = note.User;
             viewModel.Note.Title = note.Title;
             viewModel.Note.UploadPath = note.UploadPath;
             viewModel.Note.DateAdded = note.DateAdded;
             viewModel.Note.Description = note.Description;
             viewModel.Note.PetId = note.PetId;
+            viewModel.Note.Pet = note.Pet;
 
             return View(viewModel);
         }

@@ -56,6 +56,7 @@ namespace BluegrassPetCare.Controllers
                             .Include(p => p.Sex)
                             .Include(p => p.Species)
                             .Include(p => p.Notes)
+                            .Include(p => p.User)
                             .ToListAsync();
                 return View(userPets);
             }
@@ -99,6 +100,7 @@ namespace BluegrassPetCare.Controllers
                 .Include(p => p.Sex)
                 .Include(p => p.Species)
                 .Include(p => p.Notes)
+                .Include(p => p.User)
                 .FirstOrDefaultAsync(p => p.PetId == id);
 
             var viewModel = new PetDetailViewModel()
@@ -108,6 +110,7 @@ namespace BluegrassPetCare.Controllers
 
             viewModel.Pet.PetId = pet.PetId;
             viewModel.Pet.UserId = pet.UserId;
+            viewModel.User = pet.User;
             viewModel.Pet.Name = pet.Name;
             viewModel.Pet.Color = pet.Color;
             viewModel.Pet.ImagePath = pet.ImagePath;

@@ -207,8 +207,14 @@ input[type="checkbox"]:checked ~ .reveal-if-active {
     color: rgba(41, 48, 51, 0.95);
 }
 
+/*PETNOTES MEDIA*/
 
-
+.petNotesList
+@media (min-width: 768px) {
+    html {
+        font-size: 16px;
+    }
+}
 
 
 
@@ -251,6 +257,13 @@ input[type="checkbox"]:checked ~ .reveal-if-active {
     flex-direction: column;
     color:white;
 }
+
+.petCardDetails {
+    margin: 1rem;
+    flex-direction: column;
+    color: white;
+}
+
 
 
 
@@ -389,13 +402,13 @@ input[type="checkbox"]:checked ~ .reveal-if-active {
 }
 
 .tableRoleIcons embed {
-    height: 200px;
+    height: 120px;
     width: auto;
 }
 
 .tableFactionIcons embed {
     height: 50px;
-    width: auto
+    width: auto;
 }
 
 
