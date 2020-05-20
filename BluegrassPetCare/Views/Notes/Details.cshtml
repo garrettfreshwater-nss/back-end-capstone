@@ -6,86 +6,85 @@
     <div class="Index-Title">
         <h1>Note Details</h1>
     </div>
-<div class="PetDetails">
-    
+    <div class="PetDetails">
 
-    <div class="PetCards">
 
-        <div class="petCardDetails" style="min-width: 20rem;">
-            <div class="card-header" style="text-align:center;">
-                <div>
-                    <h2>@Html.DisplayFor(model => model.Note.Title)</h2>
+        <div class="PetCards">
+
+            <div class="petCardDetails" style="min-width: 20rem;">
+                <div class="card-header" style="text-align:center;">
+                    <div>
+                        <h2>@Html.DisplayFor(model => model.Note.Title)</h2>
+                    </div>
                 </div>
-            </div>
 
-            <div class="petInfo">
-                <dd class="PetInfoText">
-                    <dl class="row">
-                        <dd class="col-sm-12 align-content-center" style="margin:auto;">
+                <div class="petInfo">
+                    <dd class="PetInfoText">
+                        <dl class="row">
+                            <dd class="col-sm-12 align-content-center" style="margin:auto;">
 
-                            <div class="petInfoLines">
+                                <div class="petInfoLines">
 
-                                @if (@Model.Note.UploadPath == null)
-                                {
-                                    <div style="margin: auto;">
-                                        <embed style="max-height: 200px; max-width: 200px" src="~/pdfs/@Model.Note.UploadPath" alt="cool image" />
-                                    </div>
-                                }
-                                else
-                                {
-                                    <div style="margin:auto;">
+                                    @if (@Model.Note.UploadPath == null)
+                                    {
+                                        <div style="margin: auto;">
+                                            <embed style="max-height: 200px; max-width: 200px" src="~/pdfs/@Model.Note.UploadPath" alt="cool image" />
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <div style="margin:auto;">
 
-                                        <a href="@Url.Action("Details", "Notes",  new { Id = @Model.Note.NoteId })">
-                                            <embed style="max-width:600px; min-width: 500px; margin: auto 20px;" src="~/pdfs/@Model.Note.UploadPath">
-                                        </a>
-                                    </div>
-                                }
-                            </div>
-                        <dd class="col-md-6">
-                            <div class="petInfoLines">
-                                <p>Pet:</p> @Html.DisplayFor(model => model.Note.Pet.Name)
-                            </div>
-                        </dd>
+                                            <a href="@Url.Action("Details", "Notes",  new { Id = @Model.Note.NoteId })">
+                                                <embed style="max-width:600px; min-width: 500px; margin: auto 20px;" src="~/pdfs/@Model.Note.UploadPath">
+                                            </a>
+                                        </div>
+                                    }
+                                </div>
+                            <dd class="col-md-6">
+                                <div class="petInfoLines" style="margin-left: 90px;">
+                                    <p>Pet:</p> @Html.DisplayFor(model => model.Note.Pet.Name)
+                                </div>
+                            </dd>
 
-                        <dd class="col-md-6">
-                            <div class="petInfoLines">
-                                <p>Title:</p> @Html.DisplayFor(model => model.Note.Title)
-                            </div>
-                        </dd>
+                            <dd class="col-md-6">
+                                <div class="petInfoLines" style="margin-left: 0px;">
+                                    <p>Title:</p> @Html.DisplayFor(model => model.Note.Title)
+                                </div>
+                            </dd>
 
-                        <dd class="col-md-6">
-                            <div class="petInfoLines">
-                                <p>Date Added:</p> @Html.DisplayFor(model => model.Note.DateAdded)
-                            </div>
-                        </dd>
-                        <dd class="col-md-6">
-                            <div class="petInfoLines">
-                                <p>Description:</p> @Html.DisplayFor(model => model.Note.Description)
-                            </div>
-                        </dd>
-                        <dd class="col-md-6">
-                            <div class="petInfoLines">
-                                <p>User:</p> @Html.DisplayFor(model => model.Note.User.FirstName) @Html.DisplayFor(model => model.Note.User.LastName)
-                            </div>
-                        </dd>
-
-
-</dd>
-                        <dd class="col-sm-12">
-                            <div class="petDetailsBtn">
-                                <a class="btn btn-primary btn-block" asp-action="Edit" asp-route-id="@Model.Note.NoteId">Edit</a>
-                            </div>
-                            <div class="petDetailsBtn">
-                                <a class="btn btn-primary btn-block" asp-action="Delete" asp-route-id="@Model.Note.NoteId">Delete</a>
-                            </div>
+                            <dd class="col-md-6">
+                                <div class="petInfoLines" style="margin-left: 90px;">
+                                    <p>Date Added:</p> @Html.DisplayFor(model => model.Note.DateAdded)
+                                </div>
+                            </dd>
+                            <dd class="col-md-6">
+                                <div class="petInfoLines" style="margin-left: 0px;">
+                                    <p>Description:</p> @Html.DisplayFor(model => model.Note.Description)
+                                </div>
+                            </dd>
+                            <dd class="col-md-6">
+                                <div class="petInfoLines" style="margin-left: 90px;">
+                                    <p>User:</p> @Html.DisplayFor(model => model.Note.User.FirstName) @Html.DisplayFor(model => model.Note.User.LastName)
+                                </div>
+                            </dd>
 
 
-                            <div class="petDetailsBtn">
-                                <a class="btn btn-primary btn-block" <a asp-action="Index">Back to List</a>
-                            </div>
-                        </dd>
+                    </dd>
+                    <dd class="col-sm-12">
+                        <div class="petDetailsBtn">
+                            <a class="btn btn-primary btn-block" asp-action="Edit" asp-route-id="@Model.Note.NoteId">Edit</a>
+                        </div>
+                        <div class="petDetailsBtn">
+                            <a class="btn btn-primary btn-block" asp-action="Delete" asp-route-id="@Model.Note.NoteId">Delete</a>
+                        </div>
 
-</div>
+                        <div class="petDetailsBtn">
+                            <a class="btn btn-primary btn-block" <a asp-action="Index">Back to List</a>
+                        </div>
+                    </dd>
+
+                </div>
 
             </div>
         </div>

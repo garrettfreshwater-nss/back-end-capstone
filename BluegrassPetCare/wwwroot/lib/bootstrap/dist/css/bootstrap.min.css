@@ -2866,13 +2866,13 @@ a.btn.disabled, fieldset:disabled a.btn {
 
 .btn-primary {
     color: #fff;
-    background-color: #DF691A;
+    background-color: #FEF180;
     border-color: #DF691A
 }
 
     .btn-primary:hover {
         color: #fff;
-        background-color: #bd5916;
+        background-color: #FEF180;
         border-color: #b15315
     }
 
