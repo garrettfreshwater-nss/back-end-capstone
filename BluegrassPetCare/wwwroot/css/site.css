@@ -209,15 +209,6 @@ input[type="checkbox"]:checked ~ .reveal-if-active {
 
 /*PETNOTES MEDIA*/
 
-.petNotesList
-@media (min-width: 768px) {
-    html {
-        font-size: 16px;
-    }
-}
-
-
-
 
 
 
