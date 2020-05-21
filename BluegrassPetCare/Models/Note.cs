@@ -27,7 +27,6 @@ namespace BluegrassPetCare.Models
 
     
         [StringLength(255, ErrorMessage = "The Description must be less than 255 characters.")]
-        [RegularExpression(@"^[0-9a-zA-Z''-'\s]{1,256}$", ErrorMessage = "Special characters are not allowed.")]
         public string Description { get; set; }
 
         public string UploadPath { get; set; }

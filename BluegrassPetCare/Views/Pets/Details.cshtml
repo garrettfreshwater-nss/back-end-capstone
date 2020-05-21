@@ -106,9 +106,21 @@
                             <td class="petInfoLines font-weight-bold small">
                                 @Html.DisplayFor(item => note.DateAdded)
                             </td>
-                            <td class="petInfoLines">
-                                <p class="font-weight-bold">User:</p> @Html.DisplayFor(item => note.User.FirstName) @Html.DisplayFor(item => note.User.LastName)
-                            </td>
+
+
+                                   @if (note.User.IsVeterinarian == true)
+                                    {
+                                        <td class="petInfoLines">
+                                            <p class="font-weight-bold">User:</p>@Html.DisplayFor(item => note.User.VeterinarianName)
+                                        </td>
+                                    }
+                                    else
+                                    {
+                                        <td class="petInfoLines">
+                                            <p class="font-weight-bold">User:</p> @Html.DisplayFor(item => note.User.FirstName) @Html.DisplayFor(item => note.User.LastName)
+                                        </td>
+                                    }
+
 
                             <td class="petInfoLines">
                                 <p class="font-weight-bold">Title:</p> @Html.DisplayFor(item => note.Title)
@@ -116,7 +128,7 @@
                             <td class="petInfoLines">
                                 <p class="font-weight-bold">Description:</p> @Html.DisplayFor(item => note.Description)
                             </td>
-                           
+
                         </tr>
                         }
                     </tbody>

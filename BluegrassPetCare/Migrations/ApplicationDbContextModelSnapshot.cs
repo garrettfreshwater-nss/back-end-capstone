@@ -75,7 +75,7 @@ namespace BluegrassPetCare.Migrations
                     b.Property<bool>("IsAdmin")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("IsVeterinarian")
+                    b.Property<bool?>("IsVeterinarian")
                         .HasColumnType("bit");
 
                     b.Property<string>("LastName")
@@ -141,7 +141,7 @@ namespace BluegrassPetCare.Migrations
                         {
                             Id = "00000000-ffff-ffff-ffff-ffffffffffff",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "8e680277-9e9f-42d7-9edb-61cec37fd326",
+                            ConcurrencyStamp = "b283ee53-933c-41b1-9246-0fe6630cb414",
                             Email = "admin@admin.com",
                             EmailConfirmed = true,
                             FirstName = "Admina",
@@ -151,7 +151,7 @@ namespace BluegrassPetCare.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@ADMIN.COM",
                             NormalizedUserName = "ADMIN@ADMIN.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAENUzCcVARtczFLJ06ewHAsT16bE+dsgXxsqK/s/KHmbIQuygGw6Fr7zuEhixH4bwRA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAELBz+E5oQkObq0lYsRp0ket+4/UTSRdhvOdi0SeiYIskJOyktLEKh+InUk+GLqcogg==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "7f434309-a4d9-48e9-9ebb-8803db794577",
                             TwoFactorEnabled = false,

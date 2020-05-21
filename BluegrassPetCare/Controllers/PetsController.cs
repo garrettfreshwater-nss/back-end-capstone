@@ -100,6 +100,7 @@ namespace BluegrassPetCare.Controllers
                 .Include(p => p.Sex)
                 .Include(p => p.Species)
                 .Include(p => p.Notes)
+                  .ThenInclude(u => u.User )
                 .Include(p => p.User)
                 .FirstOrDefaultAsync(p => p.PetId == id);
 
