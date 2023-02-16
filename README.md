@@ -5,7 +5,7 @@ PetCare is a ASP.Net Core / Entity Framework web application built for Animal Ho
 Pet Owners have the ability to add pets and add notes for their pets for their own reference or Veterinarian reference.  Pets and Notes can be edited and deleted. Owners have the ability to add the Veterinarian that takes care of their pets to their Pets.
 
 Veterinarians have the ability to add pets and add notes for Owners pets for their own reference or Veterinarian reference.  Pets and Notes can be edited and deleted. Veterinarians have special permissions when it comes to edit/delete of notes/pets.
-# <img src="BluegrassPetCare/wwwroot/assets/bglogoenhanced.png" height="30px" width="30px"> PetCare
+# <img src="BluegrassPetCare/wwwroot/assets/petcare.png" height="30px" width="30px"> PetCare
 
 
 <img src="BluegrassPetCare/wwwroot/assets/bpclogin.png" height="400px" width="700px"> <img src="BluegrassPetCare/wwwroot/assets/bpc.png" height="400px" width="700px">
